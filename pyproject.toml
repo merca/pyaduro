@@ -6,7 +6,7 @@ name = "pyAnduro"
 authors = [
     {name = "Merca Ovnerud", email = "merca.ovnerud@proton.me"},
 ]
-readme = "README.rst"
+readme = "README.md"
 classifiers = [
     "License:: MIT License",
 ]
