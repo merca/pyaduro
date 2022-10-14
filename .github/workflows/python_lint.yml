@@ -30,6 +30,7 @@ jobs:
         uses: microsoft/action-python@0.2.0
         with:
           black: true
+          workdir: .
   testing:
     runs-on: ubuntu-latest
     steps:
