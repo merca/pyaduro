@@ -2,7 +2,7 @@
 requires = ["aiohttp >=3.8.3","pytest-asyncio==0.19.0"]
 
 [project]
-name = "pyAnduro"
+name = "pyAduro"
 authors = [
     {name = "Merca Ovnerud", email = "merca.ovnerud@proton.me"},
 ]
