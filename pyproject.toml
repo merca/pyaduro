@@ -7,8 +7,21 @@ authors = [
     {name = "Merca Ovnerud", email = "merca.ovnerud@proton.me"},
 ]
 readme = "README.md"
-classifiers = [
-    "License:: MIT License",
-]
+license = ["LICENSE"]
+
 requires-python = ">=3.9"
 dynamic = ["version", "description"]
+
+[aliases]
+test=pytest
+
+[options.extras_require]
+test = 
+    pytest >= 7.1.3
+    pytest-asyncio >= 0.19.0
+
+all =
+    %(test)s
+
+[isort]
+profile=black
