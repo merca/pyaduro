@@ -1,5 +1,6 @@
 [build-system]
-requires = ["aiohttp >=3.8.3","pytest-asyncio==0.19.0"]
+requires = ["aiohttp >=3.8.3","pytest-asyncio==0.19.0,flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
 
 [project]
 name = "pyAduro"
