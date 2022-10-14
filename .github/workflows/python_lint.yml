@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Black
-        uses: dciborow/pyaction@0.2.0
+        uses: microsoft/action-python@0.2.0
         with:
           black: true
   testing:
@@ -39,6 +39,6 @@ jobs:
           pip install flake8 pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Pytest
-        uses: dciborow/pyaction@0.2.0
+        uses: microsoft/action-python@0.2.0
         with:
           testing: true
