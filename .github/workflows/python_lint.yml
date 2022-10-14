@@ -51,10 +51,13 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Pytest
-        uses: microsoft/action-python@0.2.0
-        with:
-          pytest: true
-          workdir: .
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest flit
+          cd .
+          python -m flit install
+          python -m pytest tests -v --asyncio-mode=auto
+        shell: bash
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
