@@ -1,0 +1,2 @@
+[build-system]
+requires = ["aiohttp >=3.8.3","pytest-asyncio==0.19.0"]
