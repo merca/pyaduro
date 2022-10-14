@@ -1,4 +1,5 @@
 """Aduro Stove on Seluxit Echidna proxy that communicates via Wappsto API"""
+from .version import __version__
 
 
 class Aduro:
