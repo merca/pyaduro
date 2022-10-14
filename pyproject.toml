@@ -7,7 +7,16 @@ authors = [
     {name = "Merca Ovnerud", email = "merca.ovnerud@proton.me"},
 ]
 readme = "README.md"
-license = ["LICENSE"]
+license = { file="LICENSE" }
 
 requires-python = ">=3.9"
+
+classifiers = [
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License",
+]
 dynamic = ["version", "description"]
+
+[project.urls]
+Source = "https://github.com/merca/pyAnduro"
