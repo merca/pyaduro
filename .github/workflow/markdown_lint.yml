@@ -1,0 +1,39 @@
+name: Markdown
+
+# Controls when the action will run.
+on:
+  pull_request:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: Install markdown lint
+        run: npm install -g markdownlint-cli
+      - name: Run markdownlint
+        shell: pwsh
+        run: |
+          markdownlint . --ignore=node_modules -o errors.txt
+          $output = get-content errors.txt
+          $lines = $output -split [Environment]::NewLine
+          if($lines.length -eq 0) {
+              echo "Everything looks good!"
+              exit 0
+          }
+          echo $output
+          foreach ($line in $lines) {
+              $fileInfo,$message = $line -split ' ',2
+              $file,$line,$col = $fileInfo -split ':'
+              
+              echo "::error file=$file,line=$line,col=$col::$message"
+          }
+          exit 1
