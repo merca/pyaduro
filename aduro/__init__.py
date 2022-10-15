@@ -1,4 +1,6 @@
-"""Aduro Stove on Seluxit Echidna proxy that communicates via Wappsto API"""
+"""
+Aduro Stove on Seluxit Echidna proxy that communicates via Wappsto API
+"""
 from .version import __version__
 
 
@@ -19,3 +21,6 @@ class Aduro:
             NotImplementedError: this is initial version of the library
         """
         raise NotImplementedError
+    def make_some_tests_fail(self):
+        print "This is a test"
+        print("very long line that should be split into multiple lines, and some more text to make black angry")
