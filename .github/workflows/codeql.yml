@@ -2,10 +2,11 @@ name: 🚨 CodeQL
 
 on:
   push:
-    branches: ["next", "current"]
+    branches:
+      - current
+      - next
   pull_request:
-    # The branches below must be a subset of the branches above
-    branches: ["current"]
+    types: [opened, synchronize, reopened]
   schedule:
     - cron: "37 12 * * 0"
 
