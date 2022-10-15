@@ -23,7 +23,7 @@ jobs:
       - name: 🔨 Install tox and any other packages
         run: pip install tox
       - name: ✔ Run tox
-        run: tox -e testenv:lint
+        run: tox -e lint --notest
       - name: ⚫ black
         uses: reviewdog/action-black@v2
         with:
