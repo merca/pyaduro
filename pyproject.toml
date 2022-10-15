@@ -19,7 +19,7 @@ requires-python = ">=3.9"
 classifiers = [
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
-    "Programming Language :: Python,
+    "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Topic :: Home Automation",
     "Topic :: Software Development :: Libraries :: Python Modules",
