@@ -7,6 +7,8 @@ from .helpers import try_convert_object
 
 TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
 
+# pylint: disable=unsupported-binary-operation
+
 
 @dataclass
 class Connection:
@@ -57,7 +59,8 @@ class Meta:
         _name_by_user = str(obj.get("name_by_user"))
         _iot = bool(obj.get("iot"))
         _connection = (
-            Connection.from_dict(obj.get("connection")) if "connection" in obj.keys() else None
+            Connection.from_dict(obj.get("connection")
+                                 ) if "connection" in obj.keys() else None
         )
         _stable_connection = (
             Connection.from_dict(obj.get("stable_connection"))
@@ -189,8 +192,10 @@ class Entity:
         _period = str(obj.get("period"))
         _delta = str(obj.get("delta"))
         _permission = str(obj.get("permission"))
-        _number = Number.from_dict(obj.get("number")) if "number" in obj.keys() else None
-        _string = String.from_dict(obj.get("string")) if "string" in obj.keys() else None
+        _number = Number.from_dict(
+            obj.get("number")) if "number" in obj.keys() else None
+        _string = String.from_dict(
+            obj.get("string")) if "string" in obj.keys() else None
         _meta = Meta.from_dict(obj.get("meta"))
         return Entity(
             _state,
