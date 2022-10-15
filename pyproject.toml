@@ -7,7 +7,7 @@ requires = [
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "pyAduro"
+name = "aduro"
 authors = [
     {name = "Merca Ovnerud", email = "merca.ovnerud@proton.me"},
 ]
@@ -17,8 +17,12 @@ license = { file="LICENSE" }
 requires-python = ">=3.9"
 
 classifiers = [
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python,
+    "Programming Language :: Python :: 3",
+    "Topic :: Home Automation",
+    "Topic :: Software Development :: Libraries :: Python Modules",
     "License :: OSI Approved :: MIT License",
 ]
 dynamic = ["version", "description"]

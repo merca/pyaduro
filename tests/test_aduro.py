@@ -5,7 +5,7 @@ Tests for pyAduro
 import aiohttp
 import pytest
 
-from pyAduro import Aduro
+from aduro import Aduro
 
 
 @pytest.mark.asyncio

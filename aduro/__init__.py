@@ -3,9 +3,10 @@ from .version import __version__
 
 
 class Aduro:
+    """Aduro Stove proxi client"""
+
     def __init__(self) -> None:
         """Initialize Aduro Stove"""
-        pass
 
     async def login(self, username, password) -> None:
         """Login to Aduro Stove
