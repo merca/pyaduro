@@ -21,3 +21,6 @@ class Aduro:
             NotImplementedError: this is initial version of the library
         """
         raise NotImplementedError
+
+    def temporary_to_make_pylint_happy(self):
+        """Temporary function"""
