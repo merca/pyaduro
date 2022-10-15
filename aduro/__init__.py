@@ -3,8 +3,6 @@ Aduro Stove on Seluxit Echidna proxy that communicates via Wappsto API
 """
 from .version import __version__
 
-import asyncio
-
 
 class Aduro:
     """Aduro Stove proxi client"""
@@ -23,17 +21,3 @@ class Aduro:
             NotImplementedError: this is initial version of the library
         """
         raise NotImplementedError
-
-    def make_some_tests_fail(self):
-        print(
-            "very long line that should be split into multiple lines, and some more text to make black angry"
-        )
-        name = input("Hello! What is your name?\n")
-        print(
-            "Well, {0}, I am thinking of a number between 1 and 20. And something more to make sure its long".format(
-                name
-            )
-        )
-
-
-import itertools
