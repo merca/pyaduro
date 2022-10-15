@@ -12,7 +12,7 @@ class Aduro:
         """Login to Aduro Stove
 
         Args:
-            username (_type_): username  Wappsto account
+            username (_type_): username to Wappsto account
             password (_type_): password to Wappsto account
 
         Raises:
