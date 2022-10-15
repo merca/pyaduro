@@ -1,4 +1,4 @@
-name: Build
+name: 💢 SonarQube
 on:
   push:
     branches:
@@ -27,5 +27,5 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_PATH }} # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_PATH }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

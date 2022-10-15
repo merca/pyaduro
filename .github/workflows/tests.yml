@@ -1,4 +1,4 @@
-name: 💠 Python lint
+name: ✅ Python tests
 
 on:
   push:
@@ -11,17 +11,24 @@ on:
   workflow_dispatch:
 
 jobs:
-  linting:
-    name: ⚫ black
+  testing:
+    name: ✔ pytest
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10"]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Black
-        uses: microsoft/action-python@0.2.0
-        with:
-          black: true
-          workdir: .
+      - name: Pytest
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest flit
+          cd .
+          python -m flit install
+          pip install '.[test]'
+          python -m pytest -v --asyncio-mode=auto tests
+        shell: bash
