@@ -111,7 +111,7 @@ def get_number_obj():
 
 
 @pytest.fixture(name="entity_number_obj", scope="module")
-def get_entity_obj():
+def get_entity_number_obj():
     """Entity number fixture"""
     return json.loads(
         """

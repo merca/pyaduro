@@ -6,6 +6,17 @@ from datetime import datetime
 
 from aduro.model import Connection, Device, Entity, Meta, Number, State
 
+from .fixtures import (
+    get_entity_number_obj,
+    get_entity_string_obj,
+    get_connection_obj,
+    get_device_obj,
+    get_meta_obj,
+    get_state_string_obj,
+    get_number_obj,
+    get_state_number_obj,
+)
+
 
 def test_connection_from_dict(connection_obj):
     """Test connection from dict"""
