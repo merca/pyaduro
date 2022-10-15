@@ -13,5 +13,5 @@ async def test_login():
     """Test login"""
     async with aiohttp.ClientSession():
         aduro_client = Aduro()
-        with pytest.raises(NotImplementedError):
-            await aduro_client.login("username", "password")
+        # with pytest.raises(NotImplementedError):
+        assert await aduro_client.login("username", "password")
