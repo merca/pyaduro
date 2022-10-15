@@ -5,6 +5,8 @@ from typing import Any
 
 from .helpers import try_convert_object
 
+TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
+
 
 @dataclass
 class Connection:
@@ -16,7 +18,7 @@ class Connection:
     @staticmethod
     def from_dict(obj: Any) -> "Connection":
         """Create Connection from dict"""
-        _timestamp = datetime.strptime(obj.get("timestamp"), "%Y-%m-%dT%H:%M:%S.%fZ")
+        _timestamp = datetime.strptime(obj.get("timestamp"), TIMESTAMP_FORMAT)
         _online = obj.get("online")
         return Connection(timestamp=_timestamp, online=_online)
 
@@ -48,8 +50,8 @@ class Meta:
         _version = str(obj.get("version"))
         _owner = str(obj.get("owner"))
         _manufacturer = str(obj.get("manufacturer"))
-        _created = datetime.strptime(obj.get("created"), "%Y-%m-%dT%H:%M:%S.%fZ")
-        _updated = datetime.strptime(obj.get("updated"), "%Y-%m-%dT%H:%M:%S.%fZ")
+        _created = datetime.strptime(obj.get("created"), TIMESTAMP_FORMAT)
+        _updated = datetime.strptime(obj.get("updated"), TIMESTAMP_FORMAT)
         _tag = list(obj.get("tag"))
         _tag_by_user = list(obj.get("tag_by_user"))
         _name_by_user = str(obj.get("name_by_user"))
@@ -218,7 +220,7 @@ class State:
     @staticmethod
     def from_dict(obj: Any) -> "State":
         """Converts a dict to a State object"""
-        _timestamp = datetime.strptime(obj.get("timestamp"), "%Y-%m-%dT%H:%M:%S.%fZ")
+        _timestamp = datetime.strptime(obj.get("timestamp"), TIMESTAMP_FORMAT)
         _value = try_convert_object(obj, "data")
         _status_payment = str(obj.get("status_payment"))
         _type = str(obj.get("type"))

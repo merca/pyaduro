@@ -6,23 +6,22 @@ from datetime import datetime
 
 from aduro.model import Connection, Device, Entity, Meta, Number, State
 
-from .fixtures import (
-    get_entity_number_obj,
-    get_entity_string_obj,
-    get_connection_obj,
-    get_device_obj,
-    get_meta_obj,
-    get_state_string_obj,
-    get_number_obj,
-    get_state_number_obj,
-)
+# pylint: disable=unused-import
+from .fixtures import (get_connection_obj, get_device_obj,
+                       get_entity_number_obj, get_entity_string_obj,
+                       get_meta_obj, get_number_obj, get_state_number_obj,
+                       get_state_string_obj)
+
+# pylint: enable=unused-import
+
+TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
 
 
 def test_connection_from_dict(connection_obj):
     """Test connection from dict"""
     connection = Connection.from_dict(connection_obj)
     assert connection.timestamp == datetime.strptime(
-        "2022-10-14T16:06:22.021852Z", "%Y-%m-%dT%H:%M:%S.%fZ"
+        "2022-10-14T16:06:22.021852Z", TIMESTAMP_FORMAT
     )
     assert connection.online is False
 
@@ -35,18 +34,22 @@ def test_meta_from_dict(meta_obj):
     assert meta.version == "2.1"
     assert meta.owner == "a4e0a961-b3f5-4571-8a68-30cbb140d204"
     assert meta.manufacturer == "d510770c-e8cc-4b9f-8863-6044b96bb799"
-    assert meta.created == datetime.strptime("2022-09-14T18:39:45.340401Z", "%Y-%m-%dT%H:%M:%S.%fZ")
-    assert meta.updated == datetime.strptime("2022-10-14T09:47:25.969650Z", "%Y-%m-%dT%H:%M:%S.%fZ")
+    assert meta.created == datetime.strptime(
+        "2022-09-14T18:39:45.340401Z", TIMESTAMP_FORMAT
+    )
+    assert meta.updated == datetime.strptime(
+        "2022-10-14T09:47:25.969650Z", TIMESTAMP_FORMAT
+    )
     assert meta.tag == []
     assert meta.tag_by_user == []
     assert meta.name_by_user == "Stove"
     assert meta.iot is True
     assert meta.connection.timestamp == datetime.strptime(
-        "2022-10-14T16:06:22.021852Z", "%Y-%m-%dT%H:%M:%S.%fZ"
+        "2022-10-14T16:06:22.021852Z", TIMESTAMP_FORMAT
     )
     assert meta.connection.online is False
     assert meta.stable_connection.timestamp == datetime.strptime(
-        "2022-10-14T16:06:22.021852Z", "%Y-%m-%dT%H:%M:%S.%fZ"
+        "2022-10-14T16:06:22.021852Z", TIMESTAMP_FORMAT
     )
     assert meta.stable_connection.online is False
 
@@ -102,10 +105,10 @@ def test_entity_number_obj(entity_number_obj):
     assert entity_number.meta.owner == "a4e0a961-b3f5-4571-8a68-30cbb140d204"
     assert entity_number.meta.manufacturer == "d510770c-e8cc-4b9f-8863-6044b96bb799"
     assert entity_number.meta.created == datetime.strptime(
-        "2022-09-14T18:39:45.340401Z", "%Y-%m-%dT%H:%M:%S.%fZ"
+        "2022-09-14T18:39:45.340401Z", TIMESTAMP_FORMAT
     )
     assert entity_number.meta.updated == datetime.strptime(
-        "2022-10-05T16:51:42.810914Z", "%Y-%m-%dT%H:%M:%S.%fZ"
+        "2022-10-05T16:51:42.810914Z", TIMESTAMP_FORMAT
     )
     assert entity_number.meta.tag == []
     assert entity_number.meta.tag_by_user == []
@@ -130,10 +133,10 @@ def test_entity_string_obj(entity_string_obj):
     assert entity_string.meta.owner == "a4e0a961-b3f5-4571-8a68-30cbb140d204"
     assert entity_string.meta.manufacturer == "d510770c-e8cc-4b9f-8863-6044b96bb799"
     assert entity_string.meta.created == datetime.strptime(
-        "2022-09-14T18:39:45.340401Z", "%Y-%m-%dT%H:%M:%S.%fZ"
+        "2022-09-14T18:39:45.340401Z", TIMESTAMP_FORMAT
     )
     assert entity_string.meta.updated == datetime.strptime(
-        "2022-10-05T16:51:42.810914Z", "%Y-%m-%dT%H:%M:%S.%fZ"
+        "2022-10-05T16:51:42.810914Z", TIMESTAMP_FORMAT
     )
     assert entity_string.meta.tag == []
     assert entity_string.meta.tag_by_user == []
@@ -144,7 +147,7 @@ def test_state_string_obj(state_string_obj):
     """Test state string from dict"""
     state_string = State.from_dict(state_string_obj)
     assert state_string.timestamp == datetime.strptime(
-        "2022-10-15T16:29:17.023096Z", "%Y-%m-%dT%H:%M:%S.%fZ"
+        "2022-10-15T16:29:17.023096Z", TIMESTAMP_FORMAT
     )
     assert state_string.data == "WORK PHASE"
     assert state_string.status_payment == "owned"
@@ -155,10 +158,10 @@ def test_state_string_obj(state_string_obj):
     assert state_string.meta.owner == "a4e0a961-b3f5-4571-8a68-30cbb140d204"
     assert state_string.meta.manufacturer == "d510770c-e8cc-4b9f-8863-6044b96bb799"
     assert state_string.meta.created == datetime.strptime(
-        "2022-09-14T18:39:45.340401Z", "%Y-%m-%dT%H:%M:%S.%fZ"
+        "2022-09-14T18:39:45.340401Z", TIMESTAMP_FORMAT
     )
     assert state_string.meta.updated == datetime.strptime(
-        "2022-10-15T16:29:17.112739Z", "%Y-%m-%dT%H:%M:%S.%fZ"
+        "2022-10-15T16:29:17.112739Z", TIMESTAMP_FORMAT
     )
     assert state_string.meta.tag == []
     assert state_string.meta.tag_by_user == []
@@ -170,7 +173,7 @@ def test_state_number_obj(state_number_obj):
     """Test state number from dict"""
     state_number = State.from_dict(state_number_obj)
     assert state_number.timestamp == datetime.strptime(
-        "2022-10-15T16:29:15.764136Z", "%Y-%m-%dT%H:%M:%S.%fZ"
+        "2022-10-15T16:29:15.764136Z", TIMESTAMP_FORMAT
     )
     assert state_number.data == 0
     assert state_number.status_payment == "owned"
@@ -181,10 +184,10 @@ def test_state_number_obj(state_number_obj):
     assert state_number.meta.owner == "a4e0a961-b3f5-4571-8a68-30cbb140d204"
     assert state_number.meta.manufacturer == "d510770c-e8cc-4b9f-8863-6044b96bb799"
     assert state_number.meta.created == datetime.strptime(
-        "2022-09-14T18:39:45.340401Z", "%Y-%m-%dT%H:%M:%S.%fZ"
+        "2022-09-14T18:39:45.340401Z", TIMESTAMP_FORMAT
     )
     assert state_number.meta.updated == datetime.strptime(
-        "2022-10-15T16:29:15.987863Z", "%Y-%m-%dT%H:%M:%S.%fZ"
+        "2022-10-15T16:29:15.987863Z", TIMESTAMP_FORMAT
     )
     assert state_number.meta.tag == []
     assert state_number.meta.tag_by_user == []
