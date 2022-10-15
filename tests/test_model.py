@@ -158,7 +158,7 @@ def test_state_string_obj(state_string_obj):
     assert state_string.meta.tag == []
     assert state_string.meta.tag_by_user == []
     assert state_string.meta.name_by_user == "Report"
-    assert state_string.meta.iot == True
+    assert state_string.meta.iot is True
 
 
 def test_state_number_obj(state_number_obj):

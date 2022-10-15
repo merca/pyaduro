@@ -6,7 +6,7 @@ import json
 import pytest  # noqa E402 # pylint: disable=import-error
 
 
-@pytest.fixture
+@pytest.fixture(name="connection_obj")
 def connection_obj():
     """Connection fixture"""
     return json.loads(
@@ -19,7 +19,7 @@ def connection_obj():
     )
 
 
-@pytest.fixture
+@pytest.fixture(name="meta_obj")
 def meta_obj():
     """Meta fixture"""
     return json.loads(
@@ -49,7 +49,7 @@ def meta_obj():
     )
 
 
-@pytest.fixture
+@pytest.fixture(name="device_obj")
 def device_obj():
     """Device fixture"""
     return json.loads(
@@ -95,7 +95,7 @@ def device_obj():
     )
 
 
-@pytest.fixture
+@pytest.fixture(name="number_obj")
 def number_obj():
     """Number fixture"""
     return json.loads(
@@ -110,8 +110,8 @@ def number_obj():
     )
 
 
-@pytest.fixture
-def entity_number_obj():
+@pytest.fixture(name="entity_number_obj")
+def entity_with_number_obj():
     """Entity number fixture"""
     return json.loads(
         """
@@ -148,8 +148,8 @@ def entity_number_obj():
     )
 
 
-@pytest.fixture
-def entity_string_obj():
+@pytest.fixture(name="entity_string_obj")
+def entity_with_string_obj():
     """Entity string fixture"""
     return json.loads(
         """
@@ -184,8 +184,8 @@ def entity_string_obj():
     )
 
 
-@pytest.fixture
-def state_string_obj():
+@pytest.fixture(name="state_string_obj")
+def state_with_string_obj():
     """State string fixture"""
     return json.loads(
         """
@@ -212,8 +212,8 @@ def state_string_obj():
     )
 
 
-@pytest.fixture
-def state_number_obj():
+@pytest.fixture(name="state_number_obj")
+def state_with_number_obj():
     """State number fixture"""
     return json.loads(
         """

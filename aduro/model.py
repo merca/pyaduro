@@ -21,6 +21,7 @@ class Connection:
         return Connection(timestamp=_timestamp, online=_online)
 
 
+# pylint: disable=too-many-instance-attributes
 @dataclass
 class Meta:
     """Meta class for device meta"""
@@ -32,8 +33,8 @@ class Meta:
     manufacturer: str
     created: datetime
     updated: datetime
-    tag: list[object]
-    tag_by_user: list[object]
+    tag: [object]
+    tag_by_user: [object]
     name_by_user: str
     iot: bool
     connection: Connection | None
@@ -78,12 +79,15 @@ class Meta:
         )
 
 
+# pylint: enable=too-many-instance-attributes
+
+
 @dataclass
 class Device:
     """Device class"""
 
-    status: list[object]
-    value: list[str]
+    status: [object]
+    value: [str]
     name: str
     manufacturer: str
     product: str
@@ -161,8 +165,8 @@ class String:
 class Entity:
     """Entity class for device entitie"""
 
-    state: list[str]
-    eventlog: list[object]
+    state: [str]
+    eventlog: [object]
     name: str
     type: str
     period: str
