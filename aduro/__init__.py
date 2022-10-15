@@ -1,11 +1,11 @@
 """
-Aduro Stove on Seluxit Echidna proxy that communicates via Wappsto API
+Aduro Stove Wappsto API proxy
 """
 from .version import __version__
 
 
 class Aduro:
-    """Aduro Stove proxi client"""
+    """Aduro Stove proxy client"""
 
     def __init__(self) -> None:
         """Initialize Aduro Stove"""
