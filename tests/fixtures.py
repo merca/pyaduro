@@ -6,8 +6,8 @@ import json
 import pytest  # noqa E402 # pylint: disable=import-error
 
 
-@pytest.fixture(name="connection_obj")
-def connection_obj():
+@pytest.fixture(name="connection_obj", scope="module")
+def get_connection_obj():
     """Connection fixture"""
     return json.loads(
         """
@@ -19,8 +19,8 @@ def connection_obj():
     )
 
 
-@pytest.fixture(name="meta_obj")
-def meta_obj():
+@pytest.fixture(name="meta_obj", scope="module")
+def get_meta_obj():
     """Meta fixture"""
     return json.loads(
         """
@@ -49,8 +49,8 @@ def meta_obj():
     )
 
 
-@pytest.fixture(name="device_obj")
-def device_obj():
+@pytest.fixture(name="device_obj", scope="module")
+def get_device_obj():
     """Device fixture"""
     return json.loads(
         """
@@ -68,7 +68,7 @@ def device_obj():
             "description": "Aduro Stove on Seluxit Echidna",
             "protocol": "JSONRPC over SSL",
             "communication": "WIFI",
-            "meta": 
+            "meta":
             {
                 "id": "373371fe-9735-4069-25d6-44a93531a982",
                 "type": "device",
@@ -95,8 +95,8 @@ def device_obj():
     )
 
 
-@pytest.fixture(name="number_obj")
-def number_obj():
+@pytest.fixture(name="number_obj", scope="module")
+def get_number_obj():
     """Number fixture"""
     return json.loads(
         """
@@ -110,8 +110,8 @@ def number_obj():
     )
 
 
-@pytest.fixture(name="entity_number_obj")
-def entity_with_number_obj():
+@pytest.fixture(name="entity_number_obj", scope="module")
+def get_entity_obj():
     """Entity number fixture"""
     return json.loads(
         """
@@ -148,8 +148,8 @@ def entity_with_number_obj():
     )
 
 
-@pytest.fixture(name="entity_string_obj")
-def entity_with_string_obj():
+@pytest.fixture(name="entity_string_obj", scope="module")
+def get_entity_string_obj():
     """Entity string fixture"""
     return json.loads(
         """
@@ -184,8 +184,8 @@ def entity_with_string_obj():
     )
 
 
-@pytest.fixture(name="state_string_obj")
-def state_with_string_obj():
+@pytest.fixture(name="state_string_obj", scope="module")
+def get_state_string_obj():
     """State string fixture"""
     return json.loads(
         """
@@ -212,8 +212,8 @@ def state_with_string_obj():
     )
 
 
-@pytest.fixture(name="state_number_obj")
-def state_with_number_obj():
+@pytest.fixture(name="state_number_obj", scope="module")
+def get_state_number_obj():
     """State number fixture"""
     return json.loads(
         """

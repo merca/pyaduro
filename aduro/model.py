@@ -1,7 +1,7 @@
 """Data classes for Aduro"""
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, cast
+from typing import Any
 
 from .helpers import try_convert_object
 
@@ -79,9 +79,6 @@ class Meta:
         )
 
 
-# pylint: enable=too-many-instance-attributes
-
-
 @dataclass
 class Device:
     """Device class"""
@@ -127,6 +124,9 @@ class Device:
         )
 
 
+# pylint: enable=too-many-instance-attributes
+
+
 @dataclass
 class Number:
     """Number class for device numbers"""
@@ -161,6 +161,7 @@ class String:
         return String(_max, _encoding)
 
 
+# pylint: disable=too-many-instance-attributes
 @dataclass
 class Entity:
     """Entity class for device entitie"""
@@ -203,6 +204,7 @@ class Entity:
         )
 
 
+# pylint: enable=too-many-instance-attributes
 @dataclass
 class State:
     """State class for device entity state"""

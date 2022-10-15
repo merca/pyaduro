@@ -1,16 +1,10 @@
 """
 Test Aduro api response models
 """
-import json
+
 from datetime import datetime
 
-import pytest  # noqa E402 # pylint: disable=import-error
-
 from aduro.model import Connection, Device, Entity, Meta, Number, State
-
-from .fixtures import (connection_obj, device_obj, entity_number_obj,
-                       entity_string_obj, meta_obj, number_obj,
-                       state_number_obj, state_string_obj)
 
 
 def test_connection_from_dict(connection_obj):
@@ -184,4 +178,4 @@ def test_state_number_obj(state_number_obj):
     assert state_number.meta.tag == []
     assert state_number.meta.tag_by_user == []
     assert state_number.meta.name_by_user == "Control"
-    assert state_number.meta.iot == True
+    assert state_number.meta.iot is True
