@@ -2,10 +2,10 @@ name: ✔💢 Python tests and SonarQube
 
 on:
   push:
-    branches: ["dev", "main"]
+    branches: ["next", "current"]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: ["dev", "main"]
+    branches: ["next", "current"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
