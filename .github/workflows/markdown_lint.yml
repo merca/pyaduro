@@ -8,31 +8,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
+  markdownlint:
+    name: runner / markdownlint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: 🔨 Setup Node
-        uses: actions/setup-node@v2
+      - name: markdownlint
+        uses: reviewdog/action-markdownlint@v0
         with:
-          node-version: 14.x
-      - name: 🔨 Install markdown lint
-        run: npm install -g markdownlint-cli
-      - name: 👕 Run markdownlint
-        shell: pwsh
-        run: |
-          markdownlint . --ignore=node_modules -o errors.txt
-          $output = get-content errors.txt
-          $lines = $output -split [Environment]::NewLine
-          if($lines.length -eq 0) {
-              echo "Everything looks good!"
-              exit 0
-          }
-          echo $output
-          foreach ($line in $lines) {
-              $fileInfo,$message = $line -split ' ',2
-              $file,$line,$col = $fileInfo -split ':'
-              
-              echo "::error file=$file,line=$line,col=$col::$message"
-          }
-          exit 1
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review

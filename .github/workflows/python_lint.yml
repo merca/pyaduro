@@ -15,23 +15,21 @@ jobs:
   pylint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v2
+      - uses: reviewdog/action-black@v2
         with:
-          python-version: "3.10"
-      - name: ⚫ black
-        uses: microsoft/action-python@0.2.0
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Change reviewdog reporter if you need [github-pr-check, github-check].
+          reporter: github-pr-check
+          # Change reporter level if you need.
+          # GitHub Status Check won't become failure with a warning.
+          level: warning
+      - uses: dciborow/action-pylint@0.0.7
         with:
-          black: true
-          workdir: .
-      - name: 8️⃣ flake8
-        uses: microsoft/action-python@0.2.0
-        with:
-          flake8: true
-          workdir: .
-      - name: 🔰 pylint
-        uses: microsoft/action-python@0.2.0
-        with:
-          pylint: true
-          workdir: .
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
+          reporter: github-pr-review
+          # Change reporter level if you need.
+          # GitHub Status Check won't become failure with warning.
+          level: warning
+          glob_pattern: "**/*.py"
