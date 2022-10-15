@@ -1,31 +1,27 @@
 """Helper methods for the Seluxit API."""
-from typing import Any, cast
+from typing import Any
 
 
 def try_convert_object(obj: Any, field_name: str) -> Any:
     """Try convert the object to the correct value."""
+    if obj.get(field_name) is None:
+        return None
     try:
         orig_value = obj.get(field_name)
-        if orig_value is None:
-            return None
         if "." in orig_value:
-            value = float(obj.get(field_name))
-            return value
+            return float(obj.get(field_name))
         raise ValueError
     except ValueError:
         try:
-            value = int(obj.get(field_name))
-            return value
-        except ValueError:
+            return int(obj.get(field_name))
+        except ValueError as err:
             try:
                 orig_value = obj.get(field_name)
-                if orig_value is None:
-                    return None
                 if orig_value == "true":
                     return True
                 if orig_value == "false":
                     return False
-                raise ValueError
+                raise ValueError from err
             except ValueError:
                 value = str(obj.get(field_name))
                 return value

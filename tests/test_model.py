@@ -8,18 +8,9 @@ import pytest  # noqa E402 # pylint: disable=import-error
 
 from aduro.model import Connection, Device, Entity, Meta, Number, State
 
-
-@pytest.fixture
-def connection_obj():
-    """Connection fixture"""
-    return json.loads(
-        """
-        {
-            "timestamp": "2022-10-14T16:06:22.021852Z",
-            "online": false
-        }
-        """
-    )
+from .fixtures import (connection_obj, device_obj, entity_number_obj,
+                       entity_string_obj, meta_obj, number_obj,
+                       state_number_obj, state_string_obj)
 
 
 def test_connection_from_dict(connection_obj):
@@ -29,35 +20,6 @@ def test_connection_from_dict(connection_obj):
         "2022-10-14T16:06:22.021852Z", "%Y-%m-%dT%H:%M:%S.%fZ"
     )
     assert connection.online is False
-
-
-@pytest.fixture
-def meta_obj():
-    return json.loads(
-        """
-        {
-            "id": "373371fe-9735-4069-25d6-44a93531a982",
-            "type": "device",
-            "version": "2.1",
-            "owner": "a4e0a961-b3f5-4571-8a68-30cbb140d204",
-            "manufacturer": "d510770c-e8cc-4b9f-8863-6044b96bb799",
-            "created": "2022-09-14T18:39:45.340401Z",
-            "updated": "2022-10-14T09:47:25.969650Z",
-            "tag": [],
-            "tag_by_user": [],
-            "name_by_user": "Stove",
-            "iot": true,
-            "connection": {
-                "timestamp": "2022-10-14T16:06:22.021852Z",
-                "online": false
-            },
-            "stable_connection": {
-                "timestamp": "2022-10-14T16:06:22.021852Z",
-                "online": false
-            }
-        }
-        """
-    )
 
 
 def test_meta_from_dict(meta_obj):
@@ -84,50 +46,6 @@ def test_meta_from_dict(meta_obj):
     assert meta.stable_connection.online is False
 
 
-@pytest.fixture
-def device_obj():
-    return json.loads(
-        """{
-            "status": [],
-            "value": [
-                "309c0f56-280f-4e8d-8fe9-4dc8af8cbdbb",
-                "a4e7a139-eb90-4c09-a8d0-760181f504dd"
-            ],
-            "name": "Stove",
-            "manufacturer": "Aduro",
-            "product": "P1 [4EFA]",
-            "version": "1.2.9",
-            "serial": "1879",
-            "description": "Aduro Stove on Seluxit Echidna",
-            "protocol": "JSONRPC over SSL",
-            "communication": "WIFI",
-            "meta": 
-            {
-                "id": "373371fe-9735-4069-25d6-44a93531a982",
-                "type": "device",
-                "version": "2.1",
-                "owner": "a4e0a961-b3f5-4571-8a68-30cbb140d204",
-                "manufacturer": "d510770c-e8cc-4b9f-8863-6044b96bb799",
-                "created": "2022-09-14T18:39:45.340401Z",
-                "updated": "2022-10-14T09:47:25.969650Z",
-                "tag": [],
-                "tag_by_user": [],
-                "name_by_user": "Stove",
-                "iot": true,
-                "connection": {
-                    "timestamp": "2022-10-14T16:06:22.021852Z",
-                    "online": false
-                },
-                "stable_connection": {
-                    "timestamp": "2022-10-14T16:06:22.021852Z",
-                    "online": false
-                }
-            }
-        }
-        """
-    )
-
-
 def test_device_from_dict(device_obj):
     """Test device from dict"""
     device = Device.from_dict(device_obj)
@@ -150,60 +68,13 @@ def test_device_from_dict(device_obj):
     assert device.meta.owner == "a4e0a961-b3f5-4571-8a68-30cbb140d204"
 
 
-@pytest.fixture
-def number_ogj():
-    return json.loads(
-        """{
-        "min": 0.0,
-        "max": 1.0,
-        "step": 1.0,
-        "unit": ""
-    }"""
-    )
-
-
-def test_number_from_dict(number_ogj):
+def test_number_from_dict(number_obj):
     """Test number from dict"""
-    number = Number.from_dict(number_ogj)
+    number = Number.from_dict(number_obj)
     assert number.min == 0.0
     assert number.max == 1.0
     assert number.step == 1.0
     assert number.unit == ""
-
-
-@pytest.fixture
-def entity_number_obj():
-    return json.loads(
-        """{
-    "state": [
-        "69d1f4fa-b664-46f2-321e-db6a7dc12776"
-    ],
-    "eventlog": [],
-    "name": "On/Off",
-    "type": "boolean",
-    "period": "0",
-    "delta": "0.000000",
-    "permission": "w",
-    "number": {
-        "min": 0.0,
-        "max": 1.0,
-        "step": 1.0,
-        "unit": ""
-    },
-    "meta": {
-        "id": "309c0f56-280f-4e8d-8fe9-4dc8af8cbdbb",
-        "type": "value",
-        "version": "2.1",
-        "owner": "a4e0a961-b3f5-4571-8a68-30cbb140d204",
-        "manufacturer": "d510770c-e8cc-4b9f-8863-6044b96bb799",
-        "created": "2022-09-14T18:39:45.340401Z",
-        "updated": "2022-10-05T16:51:42.810914Z",
-        "tag": [],
-        "tag_by_user": [],
-        "name_by_user": "On/Off"
-    }
-}"""
-    )
 
 
 def test_entity_number_obj(entity_number_obj):
@@ -236,39 +107,6 @@ def test_entity_number_obj(entity_number_obj):
     assert entity_number.meta.name_by_user == "On/Off"
 
 
-@pytest.fixture
-def entity_string_obj():
-    return json.loads(
-        """{
-    "state": [
-        "a517d519-e326-4690-076e-115f6c632da6"
-    ],
-    "eventlog": [],
-    "name": "Status",
-    "type": "aduro_state",
-    "period": "0",
-    "delta": "0.000000",
-    "permission": "r",
-    "string": {
-        "encoding": "",
-        "max": 10
-    },
-    "meta": {
-        "id": "a4e7a139-eb90-4c09-a8d0-760181f504dd",
-        "type": "value",
-        "version": "2.1",
-        "owner": "a4e0a961-b3f5-4571-8a68-30cbb140d204",
-        "manufacturer": "d510770c-e8cc-4b9f-8863-6044b96bb799",
-        "created": "2022-09-14T18:39:45.340401Z",
-        "updated": "2022-10-05T16:51:42.810914Z",
-        "tag": [],
-        "tag_by_user": [],
-        "name_by_user": "Status"
-    }
-}"""
-    )
-
-
 def test_entity_string_obj(entity_string_obj):
     """Test entity string from dict"""
     entity_string = Entity.from_dict(entity_string_obj)
@@ -297,31 +135,6 @@ def test_entity_string_obj(entity_string_obj):
     assert entity_string.meta.name_by_user == "Status"
 
 
-@pytest.fixture
-def state_string_obj():
-    return json.loads(
-        """{
-    "timestamp": "2022-10-15T16:29:17.023096Z",
-    "data": "WORK PHASE",
-    "status_payment": "owned",
-    "type": "Report",
-    "meta": {
-        "id": "a517d519-e326-4690-076e-115f6c632da6",
-        "type": "state",
-        "version": "2.1",
-        "owner": "a4e0a961-b3f5-4571-8a68-30cbb140d204",
-        "manufacturer": "d510770c-e8cc-4b9f-8863-6044b96bb799",
-        "created": "2022-09-14T18:39:45.340401Z",
-        "updated": "2022-10-15T16:29:17.112739Z",
-        "tag": [],
-        "tag_by_user": [],
-        "name_by_user": "Report",
-        "iot": true
-    }
-}"""
-    )
-
-
 def test_state_string_obj(state_string_obj):
     """Test state string from dict"""
     state_string = State.from_dict(state_string_obj)
@@ -346,31 +159,6 @@ def test_state_string_obj(state_string_obj):
     assert state_string.meta.tag_by_user == []
     assert state_string.meta.name_by_user == "Report"
     assert state_string.meta.iot == True
-
-
-@pytest.fixture
-def state_number_obj():
-    return json.loads(
-        """{
-    "timestamp": "2022-10-15T16:29:15.764136Z",
-    "data": "0",
-    "status_payment": "owned",
-    "type": "Control",
-    "meta": {
-        "id": "69d1f4fa-b664-46f2-321e-db6a7dc12776",
-        "type": "state",
-        "version": "2.1",
-        "owner": "a4e0a961-b3f5-4571-8a68-30cbb140d204",
-        "manufacturer": "d510770c-e8cc-4b9f-8863-6044b96bb799",
-        "created": "2022-09-14T18:39:45.340401Z",
-        "updated": "2022-10-15T16:29:15.987863Z",
-        "tag": [],
-        "tag_by_user": [],
-        "name_by_user": "Control",
-        "iot": true
-    }
-}"""
-    )
 
 
 def test_state_number_obj(state_number_obj):
