@@ -9,17 +9,16 @@ on:
 
 jobs:
   lint:
-    name: 👕 Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Setup Node
+      - name: 🔨 Setup Node
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Install markdown lint
+      - name: 🔨 Install markdown lint
         run: npm install -g markdownlint-cli
-      - name: Run markdownlint
+      - name: 👕 Run markdownlint
         shell: pwsh
         run: |
           markdownlint . --ignore=node_modules -o errors.txt
