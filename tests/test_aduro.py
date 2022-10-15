@@ -2,8 +2,8 @@
 Tests for pyAduro
 """
 
-import aiohttp
-import pytest
+import aiohttp  # noqa E402
+import pytest  # noqa E402
 
 from aduro import Aduro
 
