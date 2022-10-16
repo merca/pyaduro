@@ -5,7 +5,7 @@ Tests for pyAduro
 import aiohttp  # noqa E402 # pylint: disable=import-error
 import pytest  # noqa E402 # pylint: disable=import-error
 
-from aduro import Aduro
+from aduro.client import Aduro
 
 
 @pytest.mark.asyncio
