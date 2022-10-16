@@ -3,7 +3,10 @@ from typing import Any
 
 
 def try_convert_object(obj: Any, field_name: str) -> Any:
-    """Try convert the object to the correct value."""
+    """
+        Try convert the object to the correct value.
+        It is unused but I keep this when I find out how to get `pydantic` to use custom parser.
+    """
     orig_value = obj.get(field_name)
     if orig_value is None:
         return None
