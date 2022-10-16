@@ -3,10 +3,11 @@
 from datetime import datetime
 from typing import Any, List
 
+# pylint: disable=import-error
 from pydantic import Field
 from pydantic.dataclasses import dataclass
 
-# pylint: disable=unsupported-binary-operation
+# pylint: enable=import-error
 
 
 @dataclass
