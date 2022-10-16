@@ -16,3 +16,7 @@ def test_try_conert_object():
     assert try_convert_object(obj, "test") is True
     obj = {"test": "false"}
     assert try_convert_object(obj, "test") is False
+    obj = {"test": ""}
+    assert try_convert_object(obj, "test") == ""
+    obj = {}
+    assert try_convert_object(obj, "test") is None
