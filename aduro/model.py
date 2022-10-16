@@ -1,7 +1,7 @@
 """Data classes for Aduro"""
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any
+from typing import Any, List
 
 from .helpers import try_convert_object
 
@@ -30,15 +30,15 @@ class Connection:
 class Meta:
     """Meta class for device meta"""
 
-    id: str  # pylint: disable=C0103
+    id: str  # pylint: disable = invalid-name
     type: str
     version: str
     owner: str
     manufacturer: str
     created: datetime
     updated: datetime
-    tag: [object]
-    tag_by_user: [object]
+    tag: List[object]
+    tag_by_user: List[object]
     name_by_user: str
     iot: bool
     connection: Connection | None
@@ -88,8 +88,8 @@ class Meta:
 class Device:
     """Device class"""
 
-    status: [object]
-    value: [str]
+    status: List[object]
+    value: List[str]
     name: str
     manufacturer: str
     product: str
@@ -171,8 +171,8 @@ class String:
 class Entity:
     """Entity class for device entitie"""
 
-    state: [str]
-    eventlog: [object]
+    state: List[str]
+    eventlog: List[object]
     name: str
     type: str
     period: str

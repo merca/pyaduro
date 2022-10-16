@@ -7,7 +7,6 @@ from datetime import datetime
 from aduro.model import Connection, Device, Entity, Meta, Number, State
 
 # pylint: disable=unused-import
-# noqa: F401
 from .fixtures import (get_connection_obj, get_device_obj,
                        get_entity_number_obj, get_entity_string_obj,
                        get_meta_obj, get_number_obj, get_state_number_obj,
