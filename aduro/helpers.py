@@ -1,8 +1,8 @@
 """Helper methods for the Seluxit API."""
-from typing import Any
+from typing import Any, Union
 
 
-def try_convert_object(obj: Any, field_name: str) -> Any:
+def try_convert_object(obj: Any, field_name: str) -> Union[int, float, bool, str, None]:
     """
         Try convert the object to the correct value.
         It is unused but I keep this when I find out how to get `pydantic` to use custom parser.
@@ -19,5 +19,5 @@ def try_convert_object(obj: Any, field_name: str) -> Any:
     elif orig_value.isdigit():
         value = int(orig_value)
     else:
-        value = orig_value
+        value = str(orig_value)
     return value
