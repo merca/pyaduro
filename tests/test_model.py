@@ -40,8 +40,8 @@ def test_meta_from_dict(meta_obj):
     assert meta.updated == datetime.strptime(
         "2022-10-14T09:47:25.969650Z", TIMESTAMP_FORMAT
     )
-    assert meta.tag == []
-    assert meta.tag_by_user == []
+    assert not meta.tag
+    assert not meta.tag_by_user
     assert meta.name_by_user == "Stove"
     assert meta.iot is True
     assert meta.connection.timestamp == datetime.strptime(
@@ -57,7 +57,7 @@ def test_meta_from_dict(meta_obj):
 def test_device_from_dict(device_obj):
     """Test device from dict"""
     device = Device.from_dict(device_obj)
-    assert device.status == []
+    assert not device.status
     assert device.value == [
         "309c0f56-280f-4e8d-8fe9-4dc8af8cbdbb",
         "a4e7a139-eb90-4c09-a8d0-760181f504dd",
@@ -89,7 +89,7 @@ def test_entity_number_obj(entity_number_obj):
     """Test entity number from dict"""
     entity_number = Entity.from_dict(entity_number_obj)
     assert entity_number.state == ["69d1f4fa-b664-46f2-321e-db6a7dc12776"]
-    assert entity_number.eventlog == []
+    assert not entity_number.eventlog
     assert entity_number.name == "On/Off"
     assert entity_number.type == "boolean"
     assert entity_number.period == "0"
@@ -110,8 +110,8 @@ def test_entity_number_obj(entity_number_obj):
     assert entity_number.meta.updated == datetime.strptime(
         "2022-10-05T16:51:42.810914Z", TIMESTAMP_FORMAT
     )
-    assert entity_number.meta.tag == []
-    assert entity_number.meta.tag_by_user == []
+    assert not entity_number.meta.tag
+    assert not entity_number.meta.tag_by_user
     assert entity_number.meta.name_by_user == "On/Off"
 
 
@@ -119,7 +119,7 @@ def test_entity_string_obj(entity_string_obj):
     """Test entity string from dict"""
     entity_string = Entity.from_dict(entity_string_obj)
     assert entity_string.state == ["a517d519-e326-4690-076e-115f6c632da6"]
-    assert entity_string.eventlog == []
+    assert not entity_string.eventlog
     assert entity_string.name == "Status"
     assert entity_string.type == "aduro_state"
     assert entity_string.period == "0"
@@ -138,8 +138,8 @@ def test_entity_string_obj(entity_string_obj):
     assert entity_string.meta.updated == datetime.strptime(
         "2022-10-05T16:51:42.810914Z", TIMESTAMP_FORMAT
     )
-    assert entity_string.meta.tag == []
-    assert entity_string.meta.tag_by_user == []
+    assert not entity_string.meta.tag
+    assert not entity_string.meta.tag_by_user
     assert entity_string.meta.name_by_user == "Status"
 
 
@@ -163,8 +163,8 @@ def test_state_string_obj(state_string_obj):
     assert state_string.meta.updated == datetime.strptime(
         "2022-10-15T16:29:17.112739Z", TIMESTAMP_FORMAT
     )
-    assert state_string.meta.tag == []
-    assert state_string.meta.tag_by_user == []
+    assert not state_string.meta.tag
+    assert not state_string.meta.tag_by_user
     assert state_string.meta.name_by_user == "Report"
     assert state_string.meta.iot is True
 
@@ -189,7 +189,7 @@ def test_state_number_obj(state_number_obj):
     assert state_number.meta.updated == datetime.strptime(
         "2022-10-15T16:29:15.987863Z", TIMESTAMP_FORMAT
     )
-    assert state_number.meta.tag == []
-    assert state_number.meta.tag_by_user == []
+    assert not state_number.meta.tag
+    assert not state_number.meta.tag_by_user
     assert state_number.meta.name_by_user == "Control"
     assert state_number.meta.iot is True
