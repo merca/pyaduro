@@ -5,7 +5,7 @@ from .version import __version__
 
 
 class Aduro:
-    """Aduro Stove proxi client"""
+    """Aduro Stove proxy client"""
 
     def __init__(self) -> None:
         """Initialize Aduro Stove"""

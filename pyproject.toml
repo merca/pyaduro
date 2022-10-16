@@ -28,7 +28,7 @@ classifiers = [
 dynamic = ["version", "description"]
 
 [project.urls]
-Source = "https://github.com/merca/pyAnduro"
+Source = "https://github.com/merca/pyAduro"
 
 [project.optional-dependencies]
 test = [
