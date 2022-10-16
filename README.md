@@ -6,7 +6,7 @@ Async Python 3 library for Aduro Stove P4
 
 Aduro Stove uses [Wappsto](https://wappsto.seluxit.com) to share stove data. API is documentation [Seluxit](https://documentation.wappsto.com/#/).
 
-Wappsto portal can contain many devices, this API filter out Devices by Aduro, named Stove and have product P1 [4EFA], since this is the only device I can verify.
+Wappsto portal can contain many devices, this API filter out Devices by Aduro, named Stove and have product `P1 [4EFA]`, since this is the only device I can verify.
 
 All device entities with their state are returned in API. Also streaming is supported.
 
@@ -73,7 +73,7 @@ state_values = await aduro.get_states(stove_id, session_id)
 
 ## Update state
 
-To update state (whith permission `w`)
+To update state (with permission `w`)
 
 ```python
 bool success = await aduro.update_state(state_id, value)
