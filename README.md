@@ -6,9 +6,9 @@ Async Python 3 library for Aduro Stove P4
 
 Aduro Stove uses [Wappsto](https://wappsto.seluxit.com) to share stove data. API is documentation [Seluxit](https://documentation.wappsto.com/#/).
 
-Wappsto portal can contain many devices, this API filter out Devices by Aduro, named Stove and have product `P1 [4EFA]`, since this is the only device I can verify.
+Wappsto portal can contain many devices, this API filters out those by Aduro, named Stove and that have product `P1 [4EFA]`, since this is the only device I can verify.
 
-All device entities with their state are returned in API. Also streaming is supported.
+All device entities with their state are returned by the API. Streaming is supported.
 
 Login methodes: username and password or OAuth token.
 
@@ -35,7 +35,7 @@ session_id = aduro.session_id
 
 ### Get stove details
 
-Returns object with stove details
+Returns object with stove details.
 
 ```python
 # session_id is optional, if you omit session_id client uses private member
@@ -45,7 +45,7 @@ stove = await aduro.aduro_find_stove(session_id)
 
 ### Get list of all entities and loop over its states
 
-Returns list of stove entities with all their details. `get_entity_states` retruns list of statess. Possible states for entity are `control` (desired state and can be uptated when permission == `w`) or `report` (current value for state and can not be updated)
+Returns list of stove entities with all their details. `get_entity_states` retruns list of states. Possible states for entity are `control` (desired state and can be uptated when permission == `w`) or `report` (current value for state and can not be updated).
 
 ```python
 entities = await aduro.get_all_entities(stove.id, session_id)
@@ -64,7 +64,7 @@ entity_ids = await aduro.get_entity_ids(stove_id, session_id)
 
 ### Get only state values
 
-Returns list of objects that include state id, state value, timestamp
+Returns list of objects that include state id, state value and timestamp.
 
 ```python
 state_values = await aduro.get_states(stove_id, session_id)
@@ -73,7 +73,7 @@ state_values = await aduro.get_states(stove_id, session_id)
 
 ## Update state
 
-To update state (with permission `w`)
+To update state (with permission `w`).
 
 ```python
 bool success = await aduro.update_state(state_id, value)
@@ -82,7 +82,7 @@ bool success = await aduro.update_state(state_id, value)
 
 ## Streaming
 
-Streamin supports reading states with type "report" (that indicates current value)
+Streaming supports reading states with type "report" (which indicates current value).
 
 ```python
 def _callback(pkg):
