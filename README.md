@@ -2,9 +2,9 @@
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=bugs)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=coverage)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=pyAduro)
 
-Async Python 3 library for Aduro Stove P4
+Async Python 3 library for Aduro Stove P4.
 
-Aduro Stove uses [Wappsto](https://wappsto.seluxit.com) to share stove data. API is documentation [Seluxit](https://documentation.wappsto.com/#/).
+Communication with Aduro Stove is done via [Wappsto API](https://wappsto.seluxit.com). Documentation to the [Wappsto API](https://documentation.wappsto.com/#/).
 
 Wappsto portal can contain many devices, this API filters out those by Aduro, named Stove and that have product `P1 [4EFA]`, since this is the only device I can verify.
 
