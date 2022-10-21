@@ -4,7 +4,7 @@
 
 Async Python 3 library for Aduro Stove P4
 
-Aduro Stove uses [Wappsto](https://wappsto.seluxit.com) to share stove data. API is documentation [Seluxit](https://documentation.wappsto.com/#/).
+Aduro stove communicates via [Wappsto](https://wappsto.seluxit.com) API ([documentation](https://documentation.wappsto.com/#/docs/introduction/introduction)).
 
 Wappsto portal can contain many devices, this API filter out Devices by Aduro, named Stove and have product `P1 [4EFA]`, since this is the only device I can verify.
 
