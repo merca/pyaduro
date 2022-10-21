@@ -1,5 +1,5 @@
 """Aduro session for request handling"""
-from typing import List
+from typing import Dict, List
 
 from aduro.exceptions import AduroResponseError
 
@@ -21,7 +21,7 @@ class AduroSession:
         """Representation of AduroSession class."""
         return f"AduroSession version {__version__}"
 
-    def _get_headers(self) -> dict[str, str]:
+    def _get_headers(self) -> Dict[str, str]:
         """Return headers."""
         headers = {"Content-Type": CONTENT_TYPE_JSON}
         if self._session_id:
