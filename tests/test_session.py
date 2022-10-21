@@ -2,7 +2,7 @@
     Test the AduroSession class.
 """
 import aiohttp  # noqa E402 # pylint: disable=import-error
-import pytest
+import pytest  # noqa E402 # pylint: disable=import-error
 from aduro.exceptions import AduroResponseError  # noqa E402 # pylint: disable=import-error
 
 from aduro.session import AduroSession
