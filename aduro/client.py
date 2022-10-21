@@ -2,7 +2,7 @@
 from .version import __version__
 
 
-class Aduro:
+class AduroClient:
     """Aduro Stove proxy client"""
 
     def __init__(self) -> None:
