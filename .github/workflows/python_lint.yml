@@ -1,0 +1,38 @@
+name: 💠 Python lint
+
+on:
+  push:
+    branches:
+      - current
+      - next
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  pylint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: ⚫ black
+        uses: reviewdog/action-black@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-check
+          level: warning
+      - name: 🔰 pylint
+        uses: dciborow/action-pylint@0.0.7
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          level: warning
+          glob_pattern: "**/*.py"
+      - name: 🎂 mypy
+        uses: tsuyoshicho/action-mypy@v3
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: warning
+          mypy_flags: --ignore-missing-type-hints
