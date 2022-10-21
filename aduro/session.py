@@ -29,7 +29,7 @@ class AduroSession:
             headers["X-Session"] = f"{self._session_id}"
         return headers
 
-    async def async_get_stove_ids(self) -> List[str] | None:
+    async def async_get_stove_ids(self, stove_name="Stove") -> List[str] | None:
         """
         Async method to get stove IDs. It uses `Aduro` as manufacturer and `Stove` as name.
         This should return only one instance, but in case there are more,
@@ -44,7 +44,8 @@ class AduroSession:
         """
         async with self._session.get(
             f"{BASE_URL}/{API_VERSION}/device",
-            params={"this_manufacturer": "Aduro", "this_name": "Stove"},
+            params={"this_manufacturer": "Aduro",
+                    "this_name": f"{stove_name}"},
             headers=self._get_headers(),
         ) as resp:
             data = await resp.json()
