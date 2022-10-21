@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Dict, List
 
 from aduro.exceptions import AduroResponseError
+from aduro.model import Device
 
 from .const import API_VERSION, BASE_URL, CONTENT_TYPE_JSON
 from .version import __version__
@@ -53,3 +54,27 @@ class AduroSession:
                 return data["id"]
             if count == 0:
                 return None
+
+    async def get_stove_details(self, stove_id: str) -> Device:
+        """
+        Async method to get stove details.
+
+        Args:
+            stove_id (str): Stove ID.
+
+        Returns:
+            Device: Device object.
+
+        Raises:
+            AduroResponseError: if response is not 200.
+
+        """
+        async with self._session.get(
+            f"{BASE_URL}/{API_VERSION}/device/{stove_id}",
+            headers=self._get_headers(),
+        ) as resp:
+            data = await resp.json()
+            if resp.status != 200:
+                raise AduroResponseError(
+                    f"Error getting stove details: {data['message']}")
+            return Device(**data)

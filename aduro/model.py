@@ -37,7 +37,6 @@ class Meta:
 @dataclass
 class Device:
     """Device class"""
-
     status: List[object]
     value: List[str]
     name: str

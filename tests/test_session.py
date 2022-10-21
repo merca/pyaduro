@@ -11,7 +11,7 @@ from aduro.session import AduroSession
 @pytest.fixture(name="session_id")
 def get_session_id():
     """Return a session ID."""
-    return "61b2f7c8-d9be-42e6-8c50-fe93482a8409"
+    return "28971e75-86d4-4d6c-ae17-7b23944ecdd6"
 
 
 @pytest.mark.asyncio
@@ -33,7 +33,7 @@ async def test_get_session_header_has_no_session_id():
 
 
 @pytest.mark.asyncio
-async def test_get_stove_id_with_unknown_session_id_raises_aduro_response_error():
+async def test_get_stove_id_raises_aduro_response_error():
     """Test getting the stove ID."""
     async with aiohttp.ClientSession() as session:
         aduro_session = AduroSession(session, "session_id")
@@ -47,3 +47,27 @@ async def test_get_stove_id_no_stove(session_id):
     async with aiohttp.ClientSession() as session:
         aduro_session = AduroSession(session, session_id)
         assert await aduro_session.async_get_stove_ids("bongo") is None
+
+
+@pytest.mark.asyncio
+async def test_get_stove_details(session_id):
+    """Test getting the stove details."""
+    async with aiohttp.ClientSession() as session:
+        aduro_session = AduroSession(session, session_id)
+        stove = await aduro_session.get_stove_details("797f71cb-504b-4197-ac60-4643358046da")
+        assert stove is not None
+        assert stove.meta.id == "797f71cb-504b-4197-ac60-4643358046da"
+        assert stove.name == "Stove"
+        assert stove.manufacturer == "Aduro"
+        assert stove.product == "P1 [4DFA]"
+        assert isinstance(stove.value, list)
+        assert "f7143fd8-b809-48d7-96a9-39ffc6f525ad" in stove.value
+
+
+@pytest.mark.asyncio
+async def test_get_stove_details_raises_aduro_response_error():
+    """Test getting the stove details."""
+    async with aiohttp.ClientSession() as session:
+        aduro_session = AduroSession(session, "session_id")
+        with pytest.raises(AduroResponseError):
+            await aduro_session.get_stove_details("797f71cb-504b-4197-ac60-4643358046da")
