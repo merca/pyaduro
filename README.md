@@ -4,11 +4,11 @@
 
 Async Python 3 library for Aduro Stove P4.
 
-Communication with Aduro Stove is done via [Wappsto API](https://wappsto.seluxit.com). Documentation to the [Wappsto API](https://documentation.wappsto.com/#/).
+Communication with Aduro Stove is done via [Wappsto API](https://wappsto.seluxit.com). See the [Wappsto API documentation](https://documentation.wappsto.com/#/) for additional details.
 
 Wappsto portal can contain many devices, this API filters out those by Aduro, named Stove and that have product `P1 [4EFA]`, since this is the only device I can verify.
 
-All device entities with their state are returned by the API. Streaming is supported.
+All device entities, with their state, are returned by the API. Streaming is supported.
 
 Login methodes: username and password or OAuth token.
 
@@ -45,7 +45,7 @@ stove = await aduro.aduro_find_stove(session_id)
 
 ### Get list of all entities and loop over its states
 
-Returns list of stove entities with all their details. `get_entity_states` retruns list of states. Possible states for entity are `control` (desired state and can be uptated when permission == `w`) or `report` (current value for state and can not be updated).
+Returns list of stove entities with all their details. `get_entity_states` returns list of states. Possible states for entity are `control` (desired state and can be uptated when permission == `w`) or `report` (current value for state and can not be updated).
 
 ```python
 entities = await aduro.get_all_entities(stove.id, session_id)
