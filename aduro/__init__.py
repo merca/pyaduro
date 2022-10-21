@@ -1,5 +1,5 @@
 """
-Aduro Stove on Seluxit Echidna proxy that communicates via Wappsto API
+Aduro Stove Wappsto API proxy
 """
 from .version import __version__
 
@@ -21,6 +21,10 @@ class Aduro:
             NotImplementedError: this is initial version of the library
         """
         raise NotImplementedError
+
+    def __repr__(self) -> str:
+        """Representation of Aduro Stove"""
+        return f"Aduro Stove version {__version__}"
 
     def temporary_to_make_pylint_happy(self):
         """Temporary function"""
