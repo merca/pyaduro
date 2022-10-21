@@ -11,5 +11,5 @@ class Aduro:
         """Initialize Aduro Stove"""
 
     def __repr__(self) -> str:
-        """Representation of Aduro Stove"""
-        return f"Aduro Stove version {__version__}"
+        """Representation of Aduro Stove integration"""
+        return f"pyaduro version {__version__}"

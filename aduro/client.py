@@ -20,9 +20,5 @@ class AduroClient:
         """
         raise NotImplementedError
 
-    def __repr__(self) -> str:
-        """Representation of Aduro Stove"""
-        return f"Aduro Stove version {__version__}"
-
     def temporary_to_make_pylint_happy(self):
         """Temporary function"""

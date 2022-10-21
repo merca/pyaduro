@@ -33,15 +33,6 @@ async def test_get_session_header_has_no_session_id():
 
 
 @pytest.mark.asyncio
-async def test_module_version():
-    """Test the module version."""
-    async with aiohttp.ClientSession() as session:
-        aduro_session = AduroSession(session, None)
-        assert repr(
-            aduro_session) == "AduroSession version 0.1.0-beta-1"
-
-
-@pytest.mark.asyncio
 async def test_get_stove_id_with_unknown_session_id_raises_aduro_response_error():
     """Test getting the stove ID."""
     async with aiohttp.ClientSession() as session:

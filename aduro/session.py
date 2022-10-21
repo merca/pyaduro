@@ -18,10 +18,6 @@ class AduroSession:
         self._session = session
         self._session_id = session_id
 
-    def __repr__(self) -> str:
-        """Representation of AduroSession class."""
-        return f"AduroSession version {__version__}"
-
     def _get_headers(self) -> Dict[str, str]:
         """Return headers."""
         headers = {"Content-Type": CONTENT_TYPE_JSON}
