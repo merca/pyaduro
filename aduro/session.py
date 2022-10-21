@@ -48,8 +48,4 @@ class AduroSession:
             if resp.status != 200:
                 raise AduroResponseError(
                     f"Error getting stove ID: {data['message']}")
-            count = len(list(data["id"]))
-            if count == 1:
-                return data["id"]
-            if count == 0:
-                return None
+            return data["id"]

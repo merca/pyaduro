@@ -46,4 +46,13 @@ async def test_get_stove_id_no_stove(session_id):
     """Test getting the stove ID."""
     async with aiohttp.ClientSession() as session:
         aduro_session = AduroSession(session, session_id)
-        assert await aduro_session.async_get_stove_ids("bongo") is None
+        assert await aduro_session.async_get_stove_ids("bongo") == []
+
+
+@pytest.mark.asyncio
+async def test_get_stove_id_with_stove(session_id):
+    """Test getting the stove ID."""
+    async with aiohttp.ClientSession() as session:
+        aduro_session = AduroSession(session, session_id)
+        stove_ids = await aduro_session.async_get_stove_ids()
+        assert "797f71cb-504b-4197-ac60-4643358046da" in stove_ids if stove_ids else False
