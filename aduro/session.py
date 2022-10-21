@@ -1,4 +1,5 @@
 """Aduro session for request handling"""
+from __future__ import annotations
 from typing import Dict, List
 
 from aduro.exceptions import AduroResponseError
