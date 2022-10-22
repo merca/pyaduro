@@ -1,9 +1,10 @@
 """Aduro session
 """
+from __future__ import annotations
 
 from typing import Any, Dict
 
-import aiohttp
+import aiohttp  # pylint: disable=import-error #noqa F401
 
 from aduro.const import API_VERSION, BASE_URL, CONTENT_TYPE_JSON
 from aduro.exceptions import AduroResponseError
@@ -17,7 +18,13 @@ class AduroSession:  # pylint: disable=too-few-public-methods
     def __init__(
         self, session_id: str, session: aiohttp.ClientSession | None = None
     ) -> None:
-        """Initialize AduroSession class."""
+        """Initialize Aduro session.
+
+        :param session_id: session_id. Get this with AduroClient.login()
+        :type session_id: str
+        :param session: aiohttp client session, defaults to None and will be created
+        :type session: aiohttp.ClientSession | None, optional
+        """
         self._session = session or aiohttp.ClientSession()
         self._session_id = session_id
 
@@ -48,7 +55,8 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         ) as resp:
             data = await resp.json()
             if resp.status != 200:
-                raise AduroResponseError(f"Error getting stove ID: {data['message']}")
+                raise AduroResponseError(
+                    f"Error getting stove ID: {data['message']}")
             return data
 
     async def _post_url(self, path, data) -> Dict[str, Any] | None:
@@ -68,5 +76,6 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         ) as resp:
             data = await resp.json()
             if resp.status != 200:
-                raise AduroResponseError(f"Error getting stove ID: {data['message']}")
+                raise AduroResponseError(
+                    f"Error getting stove ID: {data['message']}")
             return data

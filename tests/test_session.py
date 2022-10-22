@@ -2,8 +2,8 @@
 
 from unittest.mock import patch
 
-import aiohttp
-import pytest
+import aiohttp  # pylint: disable=import-error # noqa: F401
+import pytest  # pylint: disable=import-error # noqa: F401
 
 from aduro.exceptions import AduroResponseError
 from aduro.session import AduroSession
@@ -13,6 +13,7 @@ class MockResponse:
     """Mock response class."""
 
     def __init__(self, response_json, status):
+        """Initialize MockResponse class."""
         self._json = response_json
         self.status = status
 
@@ -32,7 +33,7 @@ class MockResponse:
 class TestSession:
     """Test the Session class."""
 
-    def successfull_response(self):
+    def successful_response(self):
         """Return a successfull response."""
         return MockResponse({"success": True}, 200)
 
@@ -41,12 +42,12 @@ class TestSession:
         return MockResponse({"message": "request failed"}, 400)
 
     @pytest.mark.asyncio
-    async def test_succesfull_get(self):
-        """Test get."""
+    async def test_succesful_get(self):
+        """Test get with resonse code 200."""
         data = {"success": True}
         aduro_session = AduroSession("session_id", aiohttp.ClientSession())
         with patch.object(
-            aiohttp.ClientSession, "get", return_value=self.successfull_response()
+            aiohttp.ClientSession, "get", return_value=self.successful_response()
         ):
             result = await aduro_session._get_url(  # pylint: disable=protected-access
                 "test_url"
@@ -54,8 +55,8 @@ class TestSession:
         assert result == data
 
     @pytest.mark.asyncio
-    async def test_unsuccesfull_get(self):
-        """Test get."""
+    async def test_unsuccesful_get(self):
+        """Test get with response code 400."""
         aduro_session = AduroSession("session_id", aiohttp.ClientSession())
         with patch.object(
             aiohttp.ClientSession, "get", return_value=self.unsuccessfull_response()
@@ -66,12 +67,12 @@ class TestSession:
                 )
 
     @pytest.mark.asyncio
-    async def test_succesfull_post(self):
-        """Test post."""
+    async def test_succesful_post(self):
+        """Test post with response code 200."""
         data = {"success": True}
         aduro_session = AduroSession("session_id", aiohttp.ClientSession())
         with patch.object(
-            aiohttp.ClientSession, "post", return_value=self.successfull_response()
+            aiohttp.ClientSession, "post", return_value=self.successful_response()
         ):
             result = await aduro_session._post_url(  # pylint: disable=protected-access
                 "test_url", data
@@ -79,8 +80,8 @@ class TestSession:
             assert result == data
 
     @pytest.mark.asyncio
-    async def test_unsuccesfull_post(self):
-        """Test post."""
+    async def test_unsuccesful_post(self):
+        """Test post with response code 400."""
         aduro_session = AduroSession("session_id", aiohttp.ClientSession())
         with patch.object(
             aiohttp.ClientSession, "post", return_value=self.unsuccessfull_response()
