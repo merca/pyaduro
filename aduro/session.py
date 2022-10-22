@@ -33,8 +33,6 @@ class AduroSession:  # pylint: disable=too-few-public-methods
 
         :return: default headers
         """
-        if self._session_id is None:
-            raise AduroResponseError("No session_id for this session provided")
 
         headers = {"Content-Type": CONTENT_TYPE_JSON}
         headers["X-Session"] = f"{self._session_id}"
