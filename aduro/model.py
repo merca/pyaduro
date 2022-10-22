@@ -92,6 +92,7 @@ class Entity:
     string: String = Field(default=None)
     meta: Meta = Field(default=None)
 
+
 # pylint: enable=too-many-instance-attributes
 
 
