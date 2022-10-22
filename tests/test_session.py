@@ -34,15 +34,15 @@ class TestSession:
     """Test the Session class."""
 
     def successful_response(self):
-        """Return a successfull response."""
+        """Return a successful response."""
         return MockResponse({"success": True}, 200)
 
-    def unsuccessfull_response(self):
-        """Return an unsuccessfull response."""
+    def unsuccessful_response(self):
+        """Return an unsuccessful response."""
         return MockResponse({"message": "request failed"}, 400)
 
     @pytest.mark.asyncio
-    async def test_succesful_get(self):
+    async def test_successful_get(self):
         """Test get with resonse code 200."""
         data = {"success": True}
         aduro_session = AduroSession("session_id", aiohttp.ClientSession())
@@ -55,11 +55,11 @@ class TestSession:
         assert result == data
 
     @pytest.mark.asyncio
-    async def test_unsuccesful_get(self):
+    async def test_unsuccessful_get(self):
         """Test get with response code 400."""
         aduro_session = AduroSession("session_id", aiohttp.ClientSession())
         with patch.object(
-            aiohttp.ClientSession, "get", return_value=self.unsuccessfull_response()
+            aiohttp.ClientSession, "get", return_value=self.unsuccessful_response()
         ):
             with pytest.raises(AduroResponseError):
                 await aduro_session._get_url(  # pylint: disable=protected-access
@@ -67,7 +67,7 @@ class TestSession:
                 )
 
     @pytest.mark.asyncio
-    async def test_succesful_post(self):
+    async def test_successful_post(self):
         """Test post with response code 200."""
         data = {"success": True}
         aduro_session = AduroSession("session_id", aiohttp.ClientSession())
@@ -80,11 +80,11 @@ class TestSession:
             assert result == data
 
     @pytest.mark.asyncio
-    async def test_unsuccesful_post(self):
+    async def test_unsuccessful_post(self):
         """Test post with response code 400."""
         aduro_session = AduroSession("session_id", aiohttp.ClientSession())
         with patch.object(
-            aiohttp.ClientSession, "post", return_value=self.unsuccessfull_response()
+            aiohttp.ClientSession, "post", return_value=self.unsuccessful_response()
         ):
             with pytest.raises(AduroResponseError):
                 await aduro_session._post_url(  # pylint: disable=protected-access
