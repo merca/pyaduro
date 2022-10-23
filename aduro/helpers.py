@@ -4,8 +4,8 @@ from typing import Any, Union
 
 def try_convert_object(obj: Any, field_name: str) -> Union[int, float, bool, str, None]:
     """
-        Try convert the object to the correct value.
-        It is unused but I keep this when I find out how to get `pydantic` to use custom parser.
+    Try convert the object to the correct value.
+    It is unused but I keep this when I find out how to get `pydantic` to use custom parser.
     """
     orig_value = obj.get(field_name)
     if orig_value is None:

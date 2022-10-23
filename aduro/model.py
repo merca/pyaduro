@@ -1,4 +1,5 @@
 """Data classes for Aduro"""
+from __future__ import annotations
 
 from datetime import datetime
 from typing import Any, List
@@ -91,6 +92,7 @@ class Entity:
     number: Number = Field(default=None)
     string: String = Field(default=None)
     meta: Meta = Field(default=None)
+
 
 # pylint: enable=too-many-instance-attributes
 

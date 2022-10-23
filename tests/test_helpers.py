@@ -4,7 +4,7 @@ Tests for helper methodes
 from aduro.helpers import try_convert_object
 
 
-def test_try_conert_object():
+def test_try_convert_object():
     """Test the try_convert_object method."""
     obj = {"test": "test"}
     assert try_convert_object(obj, "test") == "test"
