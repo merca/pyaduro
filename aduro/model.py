@@ -2,13 +2,24 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, List
+from typing import Any, Dict, List
 
 # pylint: disable=import-error
 from pydantic import Field
 from pydantic.dataclasses import dataclass
 
 # pylint: enable=import-error
+
+
+@dataclass
+class SearchResponce:
+    """Search responce class."""
+    count: int
+    more: bool
+    limit: int
+    meta: Dict[str, Any]
+    child: List[Dict[str, Any]]
+    id: List[str]  # pylint: disable=invalid-name
 
 
 @dataclass
@@ -19,7 +30,6 @@ class Connection:
     online: bool = False
 
 
-# pylint: disable=too-many-instance-attributes
 @dataclass
 class Meta:
     """Meta class for device meta"""
@@ -56,9 +66,6 @@ class Device:
     meta: Meta
 
 
-# pylint: enable=too-many-instance-attributes
-
-
 @dataclass
 class Number:
     """Number class for device numbers"""
@@ -77,7 +84,6 @@ class String:
     encoding: str
 
 
-# pylint: disable=too-many-instance-attributes
 @dataclass
 class Entity:
     """Entity class for device entitie"""
@@ -92,9 +98,6 @@ class Entity:
     number: Number = Field(default=None)
     string: String = Field(default=None)
     meta: Meta = Field(default=None)
-
-
-# pylint: enable=too-many-instance-attributes
 
 
 @dataclass
