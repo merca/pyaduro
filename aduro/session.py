@@ -94,4 +94,4 @@ class AduroSession:  # pylint: disable=too-few-public-methods
                     "this_name": f"{stove_name}"},
         )
         data = SearchResponse(**raw) if raw else None
-        return data.id
+        return data.id if data else None
