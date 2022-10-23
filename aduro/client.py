@@ -10,14 +10,13 @@ class AduroClient:
         """Initialize Aduro Stove client"""
 
     async def login(self, username, password) -> None:
-        """Login to Aduro Stove
+        """Login into account with username and password
 
-        Args:
-            username (_type_): username to Wappsto account
-            password (_type_): password to Wappsto account
-
-        Raises:
-            NotImplementedError: this is initial version of the library
+        :param username: username to Wappsto account
+        :type username: _type_
+        :param password: password to Wappsto account
+        :type password: _type_
+        :raises NotImplementedError: Not implemented yet
         """
         raise NotImplementedError
 
