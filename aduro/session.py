@@ -8,7 +8,7 @@ import aiohttp  # pylint: disable=import-error #noqa F401
 
 from aduro.const import API_VERSION, BASE_URL, CONTENT_TYPE_JSON
 from aduro.exceptions import AduroResponseError
-from aduro.model import SearchResponse
+from aduro.model import Device, SearchResponse
 
 
 class AduroSession:  # pylint: disable=too-few-public-methods
@@ -95,3 +95,12 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         )
         data = SearchResponse(**raw) if raw else None
         return data.id
+
+    async def aync_get_device_info(self, device_id: str) -> Device | None:
+        """Get devices.
+
+        :return: Device
+        :rtype: Device
+        """
+        data = await self._get_url(f"device/{device_id}")
+        return Device(**data) if data else None
