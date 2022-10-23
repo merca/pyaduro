@@ -8,7 +8,7 @@ import aiohttp  # pylint: disable=import-error #noqa F401
 
 from aduro.const import API_VERSION, BASE_URL, CONTENT_TYPE_JSON
 from aduro.exceptions import AduroResponseError
-from aduro.model import SearchResponce
+from aduro.model import SearchResponse
 
 
 class AduroSession:  # pylint: disable=too-few-public-methods
@@ -93,5 +93,5 @@ class AduroSession:  # pylint: disable=too-few-public-methods
             params={"this_manufacturer": "Aduro",
                     "this_name": f"{stove_name}"},
         )
-        data = SearchResponce(**raw) if raw else None
+        data = SearchResponse(**raw) if raw else None
         return data.id

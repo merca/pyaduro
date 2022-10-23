@@ -4,7 +4,7 @@ Test Aduro api response models
 
 from datetime import datetime, timezone
 
-from aduro.model import Connection, Device, Entity, Meta, Number, SearchResponce, State
+from aduro.model import Connection, Device, Entity, Meta, Number, SearchResponse, State
 
 # pylint: disable=unused-import
 from .model_fixtures import (
@@ -204,7 +204,7 @@ def test_state_number_obj(state_number_obj):
 
 def test_search_response_obj(search_response_obj):
     """Test search response from dict"""
-    search_response = SearchResponce(**search_response_obj)
+    search_response = SearchResponse(**search_response_obj)
     assert search_response.count == 1
     assert search_response.limit == 1000
     assert search_response.meta["type"] == "idlist"

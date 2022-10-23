@@ -12,8 +12,8 @@ from pydantic.dataclasses import dataclass
 
 
 @dataclass
-class SearchResponce:
-    """Search responce class."""
+class SearchResponse:
+    """Search response class."""
     count: int
     more: bool
     limit: int
