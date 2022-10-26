@@ -12,7 +12,7 @@ from aduro.session import AduroSession
 @pytest.fixture(name="session_id")
 def get_session_id():
     """Return a session ID."""
-    load_dotenv()
+    load_dotenv(override=False)
     return os.getenv("SESSION_ID")
 
 
