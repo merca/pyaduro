@@ -1,6 +1,4 @@
-"""
-    Aduro integration client
-"""
+"""Aduro integration client"""
 
 
 class AduroClient:

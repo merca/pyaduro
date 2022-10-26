@@ -1,5 +1,4 @@
-"""Aduro session
-"""
+"""Aduro session"""
 from __future__ import annotations
 
 from typing import Any, Dict
@@ -11,9 +10,7 @@ from aduro.exceptions import AduroResponseError
 
 
 class AduroSession:  # pylint: disable=too-few-public-methods
-    """
-    Aduro session class
-    """
+    """Aduro session class"""
 
     def __init__(
         self, session_id: str, session: aiohttp.ClientSession | None = None
