@@ -1,7 +1,10 @@
 """Integration testing for Aduro API."""
+import os
 
 import aiohttp  # pylint: disable=import-error
 import pytest  # pylint: disable=import-error
+
+from dotenv import load_dotenv
 
 from aduro.exceptions import AduroResponseError
 from aduro.session import AduroSession
@@ -10,7 +13,8 @@ from aduro.session import AduroSession
 @pytest.fixture(name="session_id")
 def get_session_id():
     """Return a session ID."""
-    return "98c9b32d-b17e-4176-9e47-623fd7579c81"
+    load_dotenv()
+    return os.getenv("SESSION_ID")
 
 
 @pytest.mark.asyncio
