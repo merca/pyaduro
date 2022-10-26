@@ -60,11 +60,10 @@ class TestSession:
         aduro_session = AduroSession("session_id", aiohttp.ClientSession())
         with patch.object(
             aiohttp.ClientSession, "get", return_value=self.unsuccessful_response()
-        ):
-            with pytest.raises(AduroResponseError):
-                await aduro_session._get_url(  # pylint: disable=protected-access
-                    "test_url"
-                )
+        ), pytest.raises(AduroResponseError):
+            await aduro_session._get_url(  # pylint: disable=protected-access
+                "test_url"
+            )
 
     @pytest.mark.asyncio
     async def test_successful_post(self):
@@ -85,8 +84,7 @@ class TestSession:
         aduro_session = AduroSession("session_id", aiohttp.ClientSession())
         with patch.object(
             aiohttp.ClientSession, "post", return_value=self.unsuccessful_response()
-        ):
-            with pytest.raises(AduroResponseError):
-                await aduro_session._post_url(  # pylint: disable=protected-access
-                    "test_url", {}
-                )
+        ), pytest.raises(AduroResponseError):
+            await aduro_session._post_url(  # pylint: disable=protected-access
+                "test_url", {}
+            )
