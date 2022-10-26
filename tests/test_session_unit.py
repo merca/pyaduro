@@ -33,11 +33,13 @@ class MockResponse:
 class TestSession:
     """Test the Session class."""
 
-    def successful_response(self):
+    @staticmethod
+    def successful_response():
         """Return a successful response."""
         return MockResponse({"success": True}, 200)
 
-    def unsuccessful_response(self):
+    @staticmethod
+    def unsuccessful_response():
         """Return an unsuccessful response."""
         return MockResponse({"message": "request failed"}, 400)
 
@@ -61,9 +63,7 @@ class TestSession:
         with patch.object(
             aiohttp.ClientSession, "get", return_value=self.unsuccessful_response()
         ), pytest.raises(AduroResponseError):
-            await aduro_session._get_url(  # pylint: disable=protected-access
-                "test_url"
-            )
+            await aduro_session._get_url("test_url")  # pylint: disable=protected-access
 
     @pytest.mark.asyncio
     async def test_successful_post(self):
