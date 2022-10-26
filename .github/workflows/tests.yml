@@ -26,6 +26,8 @@ jobs:
         run: pip install tox
       - name: ✔ Run tox
         run: tox -e py
+        env:
+          SESSION_ID: ${{secrets.SESSION_ID}}
       - name: 💢 SonarCloud Scan
         if: ${{ !env.ACT }}
         uses: SonarSource/sonarcloud-github-action@master
