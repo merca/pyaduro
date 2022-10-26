@@ -8,23 +8,19 @@ from dotenv import load_dotenv  # pylint: disable=import-error
 from aduro.exceptions import AduroResponseError
 from aduro.session import AduroSession
 
-# from dotenv import load_dotenv  # pylint: disable=import-error
-
 
 @pytest.fixture(name="session_id")
 def get_session_id():
     """Return a session ID."""
-    load_dotenv(override=False)
-    session_id = os.getenv("SESSION_ID")
-    print(session_id)
-    return session_id
+    load_dotenv()
+    return os.getenv("SESSION_ID")
 
 
 @pytest.mark.asyncio
 async def test_get_successful_stove_id(session_id):
     """Test getting the stove ID."""
     async with aiohttp.ClientSession() as session:
-        aduro_session = AduroSession(os.getenv("SESSION_ID"), session)
+        aduro_session = AduroSession(session_id, session)
         stove_ids = await aduro_session.async_get_stove_ids()
         assert (
             "797f71cb-504b-4197-ac60-4643358046da" in stove_ids if stove_ids else False
