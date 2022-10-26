@@ -1,10 +1,14 @@
 {
+  "editor.formatOnType": false,
+  "editor.formatOnSave": true,
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
   "python.analysis.diagnosticSeverityOverrides": {
     "reportOptionalMemberAccess": "none"
   },
-  "python.testing.pytestArgs": ["tests"],
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true
 }
