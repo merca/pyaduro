@@ -1,3 +1,1 @@
-"""
-Aduro Stove Wappsto API proxy
-"""
+"""Aduro Stove Wappsto API proxy"""

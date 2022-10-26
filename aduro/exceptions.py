@@ -1,6 +1,4 @@
-"""
-    Aduro Exceptions
-"""
+"""Aduro Exceptions"""
 
 
 class AduroResponseError(Exception):
