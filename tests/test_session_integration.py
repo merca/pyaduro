@@ -35,13 +35,12 @@ async def test_get_stove_id_no_stove(session_id):
 @pytest.mark.asyncio
 async def test_get_stove_id_with_unknown_session_id_raises_aduro_response_error():
     """Test getting the stove ID."""
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession() as session, pytest.raises(AduroResponseError):
         aduro_session = AduroSession("session_id", session)
-        with pytest.raises(AduroResponseError):
-            await aduro_session.async_get_stove_ids()
+        await aduro_session.async_get_stove_ids()
+
 
 @pytest.mark.asyncio
-
 async def test_successful_get_device_info(session_id):
     """Test getting the device info."""
     async with aiohttp.ClientSession() as session:
@@ -55,16 +54,16 @@ async def test_successful_get_device_info(session_id):
 @pytest.mark.asyncio
 async def test_get_device_info_with_unknown_session_id_raises_aduro_response_error():
     """Test getting the device info."""
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession() as session, pytest.raises(AduroResponseError):
         aduro_session = AduroSession("session_id", session)
-        with pytest.raises(AduroResponseError):
-            await aduro_session.aync_get_device_info("797f71cb-504b-4197-ac60-4643358046da")
+        await aduro_session.aync_get_device_info("797f71cb-504b-4197-ac60-4643358046da")
 
 
 @pytest.mark.asyncio
-async def test_get_device_info_with_unknown_stove_id_raises_aduro_response_error(session_id):
+async def test_get_device_info_with_unknown_stove_id_raises_aduro_response_error(
+    session_id,
+):
     """Test getting the device info."""
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession() as session, pytest.raises(AduroResponseError):
         aduro_session = AduroSession(session_id, session)
-            await aduro_session.aync_get_device_info("bongo")
-        with pytest.raises(AduroResponseError):
+        await aduro_session.aync_get_device_info("bongo")
