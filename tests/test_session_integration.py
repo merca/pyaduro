@@ -4,10 +4,10 @@ import os
 import aiohttp  # pylint: disable=import-error
 import pytest  # pylint: disable=import-error
 
-# from dotenv import load_dotenv  # pylint: disable=import-error
-
 from aduro.exceptions import AduroResponseError
 from aduro.session import AduroSession
+
+# from dotenv import load_dotenv  # pylint: disable=import-error
 
 
 @pytest.fixture(name="session_id")
