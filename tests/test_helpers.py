@@ -1,6 +1,4 @@
-"""
-Tests for helper methodes
-"""
+"""Tests for helper methodes"""
 from aduro.helpers import try_convert_object
 
 

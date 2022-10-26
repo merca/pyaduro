@@ -1,6 +1,4 @@
-"""
-Test Aduro api response models
-"""
+"""Test Aduro api response models"""
 
 from datetime import datetime, timezone
 

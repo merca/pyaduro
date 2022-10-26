@@ -1,6 +1,4 @@
-"""
-Tests for pyAduro
-"""
+"""Tests for pyAduro"""
 
 import aiohttp  # noqa E402 # pylint: disable=import-error
 import pytest  # noqa E402 # pylint: disable=import-error

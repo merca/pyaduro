@@ -1,5 +1,4 @@
-"""Aduro session
-"""
+"""Aduro session"""
 from __future__ import annotations
 
 from typing import Any, Dict
@@ -12,9 +11,7 @@ from aduro.model import Device, SearchResponse
 
 
 class AduroSession:  # pylint: disable=too-few-public-methods
-    """
-    Aduro session class
-    """
+    """Aduro session class"""
 
     def __init__(
         self, session_id: str, session: aiohttp.ClientSession | None = None
@@ -35,8 +32,7 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         :return: default headers
         """
 
-        headers = {"Content-Type": CONTENT_TYPE_JSON}
-        headers["X-Session"] = f"{self._session_id}"
+        headers = {"Content-Type": CONTENT_TYPE_JSON, "X-Session": f"{self._session_id}"}
         return headers
 
     async def _get_url(self, path, params: dict | None = None) -> Dict[str, Any] | None:
