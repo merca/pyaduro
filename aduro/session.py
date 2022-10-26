@@ -7,7 +7,7 @@ import aiohttp  # pylint: disable=import-error #noqa F401
 
 from aduro.const import API_VERSION, BASE_URL, CONTENT_TYPE_JSON
 from aduro.exceptions import AduroResponseError
-from aduro.model import SearchResponse
+from aduro.model import Device, SearchResponse
 
 
 class AduroSession:  # pylint: disable=too-few-public-methods
@@ -55,7 +55,8 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         ) as resp:
             data = await resp.json()
             if resp.status != 200:
-                raise AduroResponseError(f"Error getting stove ID: {data['message']}")
+                raise AduroResponseError(
+                    f"Error getting stove ID: {data['message']}")
             return data
 
     async def _post_url(self, path, data) -> Dict[str, Any] | None:
@@ -75,7 +76,8 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         ) as resp:
             data = await resp.json()
             if resp.status != 200:
-                raise AduroResponseError(f"Error getting stove ID: {data['message']}")
+                raise AduroResponseError(
+                    f"Error getting stove ID: {data['message']}")
             return data
 
     async def async_get_stove_ids(self, stove_name="Stove") -> list[str] | None:
@@ -89,7 +91,17 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         """
         raw = await self._get_url(
             path="device",
-            params={"this_manufacturer": "Aduro", "this_name": f"{stove_name}"},
+            params={"this_manufacturer": "Aduro",
+                    "this_name": f"{stove_name}"},
         )
         data = SearchResponse(**raw) if raw else None
         return data.id if data else None
+
+    async def aync_get_device_info(self, device_id: str) -> Device | None:
+        """Get devices.
+
+        :return: Device
+        :rtype: Device
+        """
+        data = await self._get_url(f"device/{device_id}")
+        return Device(**data) if data else None

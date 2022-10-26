@@ -12,9 +12,9 @@ from .model_fixtures import (
     get_entity_string_obj,
     get_meta_obj,
     get_number_obj,
+    get_search_response_obj,
     get_state_number_obj,
     get_state_string_obj,
-    get_search_response_obj,
 )
 
 # pylint: enable=unused-import
