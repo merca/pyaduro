@@ -1,6 +1,4 @@
-"""
-Test fixtures for the models tests.
-"""
+"""Test fixtures for the models tests."""
 import json
 
 import pytest  # noqa E402 # pylint: disable=import-error
