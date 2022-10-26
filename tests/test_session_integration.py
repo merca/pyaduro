@@ -3,7 +3,6 @@ import os
 
 import aiohttp  # pylint: disable=import-error
 import pytest  # pylint: disable=import-error
-
 from dotenv import load_dotenv
 
 from aduro.exceptions import AduroResponseError
