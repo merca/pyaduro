@@ -2,7 +2,7 @@
 
 from datetime import datetime, timezone
 
-from aduro.model import Connection, Device, Entity, Meta, Number, State
+from aduro.model import Connection, Device, Entity, Meta, Number, SearchResponse, State
 
 # pylint: disable=unused-import
 from .model_fixtures import (
@@ -14,6 +14,7 @@ from .model_fixtures import (
     get_number_obj,
     get_state_number_obj,
     get_state_string_obj,
+    get_search_response_obj,
 )
 
 # pylint: enable=unused-import
@@ -197,3 +198,13 @@ def test_state_number_obj(state_number_obj):
     assert not state_number.meta.tag_by_user
     assert state_number.meta.name_by_user == "Control"
     assert state_number.meta.iot is True
+
+
+def test_search_response_obj(search_response_obj):
+    """Test search response from dict"""
+    search_response = SearchResponse(**search_response_obj)
+    assert search_response.count == 1
+    assert search_response.limit == 1000
+    assert search_response.meta["type"] == "idlist"
+    assert search_response.child[0]["type"] == "device"
+    assert search_response.id == ["797f71cb-504b-4197-ac60-4643358046da"]

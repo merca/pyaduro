@@ -236,3 +236,30 @@ def get_state_number_obj():
         }
         """
     )
+
+
+@pytest.fixture(name="search_response_obj", scope="module")
+def get_search_response_obj():
+    """Search response fixture"""
+    return json.loads(
+        """
+        {
+            "count": 1,
+            "more": false,
+            "limit": 1000,
+            "meta": {
+                "type": "idlist",
+                "version": "2.1"
+            },
+            "child": [
+                {
+                    "type": "device",
+                    "version": "2.1"
+                }
+            ],
+            "id": [
+                "797f71cb-504b-4197-ac60-4643358046da"
+            ]
+        }
+        """
+    )
