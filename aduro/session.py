@@ -1,13 +1,14 @@
 """Aduro session"""
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Any, Dict
 
 import aiohttp  # pylint: disable=import-error #noqa F401
 
 from aduro.const import API_VERSION, BASE_URL, CONTENT_TYPE_JSON
 from aduro.exceptions import AduroResponseError
-from aduro.model import Device, Entity, SearchResponse, State
+from aduro.model import Device, Entity, SearchResponse, State, StateType
 
 
 class AduroSession:  # pylint: disable=too-few-public-methods
@@ -40,7 +41,11 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         }
         return headers
 
-    async def _get_url(self, path, params: dict | None = None) -> Dict[str, Any] | None:
+    async def _get_url(
+        self,
+        path: str,
+        params: dict | None = None,
+    ) -> Dict[str, Any] | None:
         """Get data from url.
 
         :param path: Url path
@@ -62,7 +67,7 @@ class AduroSession:  # pylint: disable=too-few-public-methods
                 )
             return data
 
-    async def _post_url(self, path, data) -> Dict[str, Any] | None:
+    async def _put_url(self, path: str, data: Dict[str, Any]) -> Dict[str, Any] | None:
         """Post data to url.
 
         :param path: Url path
@@ -74,7 +79,7 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         :return: json response
         :rtype: dict[str, Any]
         """
-        async with self._session.post(
+        async with self._session.put(
             f"{BASE_URL}/{API_VERSION}/{path}",
             headers=self._get_headers(),
             json=data,
@@ -132,7 +137,7 @@ class AduroSession:  # pylint: disable=too-few-public-methods
             entities.append(entity)
         return entities
 
-    async def async_get_state_value(self, state_id) -> State | None:
+    async def async_get_state_value(self, state_id: str) -> State | None:
         """Get entity state
 
         :param state_id: state id
@@ -142,3 +147,23 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         """
         data = await self._get_url(f"state/{state_id}")
         return State(**data) if data else None
+
+    async def async_put_state_value(
+        self,
+        state_id: str,
+        value: Any,
+        state_type: StateType,
+    ) -> None:
+        """Replace state value by id
+
+        :param state_id: Id for state
+        :type state_id: str
+        """
+        if state_type != StateType.CONTROL:
+            raise AduroResponseError("Can only update control state")
+        payload = {
+            "timestamp": datetime.now(),
+            "data": value,
+            "type": state_type,
+        }
+        await self._put_url(f"state/{state_id}", payload)

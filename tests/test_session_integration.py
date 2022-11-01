@@ -6,6 +6,7 @@ import pytest  # pylint: disable=import-error
 from dotenv import load_dotenv  # pylint: disable=import-error
 
 from aduro.exceptions import AduroResponseError
+from aduro.model import StateType
 from aduro.session import AduroSession
 
 
@@ -102,4 +103,4 @@ async def test_entity_state(session_id):
         )
         entities = await aduro_session.async_get_device_entities(device.value)
         on_off_state = await aduro_session.async_get_state_value(entities[0].state[0])
-        assert on_off_state.type == "Control"
+        assert on_off_state.type == StateType.CONTROL

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from enum import Enum
 from typing import Any, Dict, List
 
 # pylint: disable=import-error
@@ -111,6 +112,13 @@ class Entity:
     blob: Blob = Field(default=None)
 
 
+class StateType(Enum):
+    """Enum for state type"""
+
+    REPORT = "Report"
+    CONTROL = "Control"
+
+
 @dataclass
 class State:
     """State class for device entity state"""
@@ -118,6 +126,6 @@ class State:
     timestamp: datetime
     data: Any
     status_payment: str
-    type: str
+    type: StateType
     meta: Meta
     status: str = Field(default=None)
