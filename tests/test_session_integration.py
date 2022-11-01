@@ -23,7 +23,7 @@ async def test_get_successful_stove_id(session_id):
         aduro_session = AduroSession(session_id, session)
         stove_ids = await aduro_session.async_get_stove_ids()
         assert (
-            "797f71cb-504b-4197-ac60-4643358046da" in stove_ids if stove_ids else False
+            "373371fe-9735-4069-25d6-44a93531a982" in stove_ids if stove_ids else False
         )
 
 
@@ -50,7 +50,7 @@ async def test_successful_get_device_info(session_id):
     async with aiohttp.ClientSession() as session:
         aduro_session = AduroSession(session_id, session)
         device_info = await aduro_session.aync_get_device_info(
-            "797f71cb-504b-4197-ac60-4643358046da"
+            "373371fe-9735-4069-25d6-44a93531a982",
         )
         assert device_info is not None
 
@@ -62,7 +62,7 @@ async def test_get_device_info_with_unknown_session_id_raises_aduro_response_err
         aduro_session = AduroSession("session_id", session)
         with pytest.raises(AduroResponseError):
             await aduro_session.aync_get_device_info(
-                "797f71cb-504b-4197-ac60-4643358046da"
+                "373371fe-9735-4069-25d6-44a93531a982",
             )
 
 
@@ -75,3 +75,31 @@ async def test_get_device_info_with_unknown_stove_id_raises_aduro_response_error
         aduro_session = AduroSession(session_id, session)
         with pytest.raises(AduroResponseError):
             await aduro_session.aync_get_device_info("bongo")
+
+
+@pytest.mark.asyncio
+async def test_get_device_entities(session_id):
+    """Test getting device entities"""
+    async with aiohttp.ClientSession() as session:
+        aduro_session = AduroSession(session=session, session_id=session_id)
+        device = await aduro_session.aync_get_device_info(
+            "373371fe-9735-4069-25d6-44a93531a982",
+        )
+        entities = await aduro_session.async_get_device_entities(device.value)
+        assert len(entities) == 40
+        assert entities[0].name == "On/Off"
+        assert entities[0].number is not None
+        assert entities[0].number.unit == ""
+
+
+@pytest.mark.asyncio
+async def test_entity_state(session_id):
+    """Test entity status"""
+    async with aiohttp.ClientSession() as session:
+        aduro_session = AduroSession(session=session, session_id=session_id)
+        device = await aduro_session.aync_get_device_info(
+            "373371fe-9735-4069-25d6-44a93531a982",
+        )
+        entities = await aduro_session.async_get_device_entities(device.value)
+        on_off_state = await aduro_session.async_get_state_value(entities[0].state[0])
+        assert on_off_state.type == "Control"

@@ -75,14 +75,23 @@ class Number:
     max: float
     step: float
     unit: str
+    si_conversion: str = Field(default=None)
 
 
 @dataclass
 class String:
     """String class for device strings"""
 
-    max: int
-    encoding: str
+    max: int = Field(default=None)
+    encoding: str = Field(default=None)
+
+
+@dataclass
+class Blob:
+    """Blob class for device blobs"""
+
+    max: int = Field(default=None)
+    encoding: str = Field(default=None)
 
 
 @dataclass
@@ -96,9 +105,10 @@ class Entity:
     period: str
     delta: str
     permission: str
+    meta: Meta
     number: Number = Field(default=None)
     string: String = Field(default=None)
-    meta: Meta = Field(default=None)
+    blob: Blob = Field(default=None)
 
 
 @dataclass
@@ -110,3 +120,4 @@ class State:
     status_payment: str
     type: str
     meta: Meta
+    status: str = Field(default=None)

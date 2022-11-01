@@ -7,14 +7,16 @@ import aiohttp  # pylint: disable=import-error #noqa F401
 
 from aduro.const import API_VERSION, BASE_URL, CONTENT_TYPE_JSON
 from aduro.exceptions import AduroResponseError
-from aduro.model import Device, SearchResponse
+from aduro.model import Device, Entity, SearchResponse, State
 
 
 class AduroSession:  # pylint: disable=too-few-public-methods
     """Aduro session class"""
 
     def __init__(
-        self, session_id: str, session: aiohttp.ClientSession | None = None
+        self,
+        session_id: str,
+        session: aiohttp.ClientSession | None = None,
     ) -> None:
         """Initialize Aduro session.
 
@@ -56,7 +58,8 @@ class AduroSession:  # pylint: disable=too-few-public-methods
             data = await resp.json()
             if resp.status != 200:
                 raise AduroResponseError(
-                    f"Error getting stove ID: {data['message']}")
+                    f"Error getting stove ID: {data['message']}",
+                )
             return data
 
     async def _post_url(self, path, data) -> Dict[str, Any] | None:
@@ -72,12 +75,15 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         :rtype: dict[str, Any]
         """
         async with self._session.post(
-            f"{BASE_URL}/{API_VERSION}/{path}", headers=self._get_headers(), json=data
+            f"{BASE_URL}/{API_VERSION}/{path}",
+            headers=self._get_headers(),
+            json=data,
         ) as resp:
             data = await resp.json()
             if resp.status != 200:
                 raise AduroResponseError(
-                    f"Error getting stove ID: {data['message']}")
+                    f"Error getting stove ID: {data['message']}",
+                )
             return data
 
     async def async_get_stove_ids(self, stove_name="Stove") -> list[str] | None:
@@ -91,8 +97,10 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         """
         raw = await self._get_url(
             path="device",
-            params={"this_manufacturer": "Aduro",
-                    "this_name": f"{stove_name}"},
+            params={
+                "this_manufacturer": "Aduro",
+                "this_name": f"{stove_name}",
+            },
         )
         data = SearchResponse(**raw) if raw else None
         return data.id if data else None
@@ -105,3 +113,32 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         """
         data = await self._get_url(f"device/{device_id}")
         return Device(**data) if data else None
+
+    async def async_get_device_entities(
+        self,
+        ids: list[str],
+    ) -> list[Entity] | list[Any]:
+        """Get device entities (called values in Wappsto)
+
+        :param device_id: device id
+        :type device_id: str
+        :return: list of entities
+        :rtype: list[Entity] | None
+        """
+        entities = []
+        for entity_id in ids:
+            data = await self._get_url(f"value/{entity_id}")
+            entity = Entity(**data) if data else None
+            entities.append(entity)
+        return entities
+
+    async def async_get_state_value(self, state_id) -> State | None:
+        """Get entity state
+
+        :param state_id: state id
+        :type state_id: str
+        :return: Entity state
+        :rtype: State
+        """
+        data = await self._get_url(f"state/{state_id}")
+        return State(**data) if data else None
