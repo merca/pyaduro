@@ -112,3 +112,31 @@ async def test_update_state_value(session_id):
         state_type=state.type,
     )
     assert result is True
+
+
+@pytest.mark.asyncio
+async def test_update_state_value_with_unknown_state_id_raises_aduro_response_error(
+    session_id,
+):
+    """Test put by updating time on the stove"""
+    aduro_session = AduroSession(session_id)
+    with pytest.raises(AduroResponseError):
+        await aduro_session.async_put_state_value(
+            "bongo",
+            1,
+            state_type=StateType.CONTROL,
+        )
+
+
+@pytest.mark.asyncio
+async def test_update_state_value_with_report_state_type_raises_aduro_response_error(
+    session_id,
+):
+    """Test put by updating time on the stove"""
+    aduro_session = AduroSession(session_id)
+    with pytest.raises(AduroResponseError):
+        await aduro_session.async_put_state_value(
+            "ed006fd8-3a86-4e60-1c37-bb688a079638",
+            1,
+            state_type=StateType.REPORT,
+        )
