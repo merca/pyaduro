@@ -158,16 +158,23 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         data = await self._get_url(f"state/{state_id}")
         return State(**data) if data else None
 
-    async def async_put_state_value(
+    async def async_patch_state_value(
         self,
         state_id: str,
         value: Any,
         state_type: StateType,
     ) -> bool:
-        """Replace state value by id
+        """Pathes the state value
 
-        :param state_id: Id for state
+        :param state_id: The id for the state
         :type state_id: str
+        :param value: The desired value
+        :type value: Any
+        :param state_type: The type of the state
+        :type state_type: StateType
+        :raises AduroResponseError: If stete type is not supported
+        :return: true if success
+        :rtype: bool
         """
         if state_type != StateType.CONTROL:
             raise AduroResponseError("Can only update control state")

@@ -106,7 +106,7 @@ async def test_update_state_value(session_id):
     )
     assert state.type == StateType.CONTROL
     now = datetime.utcnow()
-    result = await aduro_session.async_put_state_value(
+    result = await aduro_session.async_patch_state_value(
         state.meta.id,
         now,
         state_type=state.type,
@@ -121,7 +121,7 @@ async def test_update_state_value_with_unknown_state_id_raises_aduro_response_er
     """Test put by updating time on the stove"""
     aduro_session = AduroSession(session_id)
     with pytest.raises(AduroResponseError):
-        await aduro_session.async_put_state_value(
+        await aduro_session.async_patch_state_value(
             "bongo",
             1,
             state_type=StateType.CONTROL,
@@ -135,7 +135,7 @@ async def test_update_state_value_with_report_state_type_raises_aduro_response_e
     """Test put by updating time on the stove"""
     aduro_session = AduroSession(session_id)
     with pytest.raises(AduroResponseError):
-        await aduro_session.async_put_state_value(
+        await aduro_session.async_patch_state_value(
             "ed006fd8-3a86-4e60-1c37-bb688a079638",
             1,
             state_type=StateType.REPORT,

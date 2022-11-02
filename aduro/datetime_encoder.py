@@ -7,6 +7,7 @@ class DateTimeEncoder(json.JSONEncoder):
     """datetime encoder class"""
 
     def default(self, o):
+        """overwrites default method"""
         if isinstance(o, datetime):
             return o.isoformat(timespec="seconds")
 
