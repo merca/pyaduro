@@ -50,7 +50,7 @@ class TestSession:
     async def test_successful_get(self):
         """Test get with resonse code 200."""
         data = {"success": True}
-        aduro_session = AduroSession("session_id", aiohttp.ClientSession())
+        aduro_session = AduroSession("session_id")
         with patch.object(
             aiohttp.ClientSession,
             "get",
@@ -64,7 +64,7 @@ class TestSession:
     @pytest.mark.asyncio
     async def test_unsuccessful_get(self):
         """Test get with response code 400."""
-        aduro_session = AduroSession("session_id", aiohttp.ClientSession())
+        aduro_session = AduroSession("session_id")
         with patch.object(
             aiohttp.ClientSession,
             "get",
@@ -73,32 +73,32 @@ class TestSession:
             await aduro_session._get_url("test_url")  # pylint: disable=protected-access
 
     @pytest.mark.asyncio
-    async def test_successful_put(self):
+    async def test_successful_patch(self):
         """Test put with response code 200."""
         data = {"success": True}
-        aduro_session = AduroSession("session_id", aiohttp.ClientSession())
+        aduro_session = AduroSession("session_id")
         with patch.object(
             aiohttp.ClientSession,
-            "put",
+            "patch",
             return_value=self.successful_response(),
         ):
-            result = await aduro_session._put_url(  # pylint: disable=protected-access
+            result = await aduro_session._patch_url(  # pylint: disable=protected-access
                 "test_url",
                 data,
             )
             assert result == data
 
     @pytest.mark.asyncio
-    async def test_unsuccessful_put(self):
+    async def test_unsuccessful_patch(self):
         """Test post with response code 400."""
-        aduro_session = AduroSession("session_id", aiohttp.ClientSession())
+        aduro_session = AduroSession("session_id")
         data = {"test": "test"}
         with patch.object(
             aiohttp.ClientSession,
-            "put",
+            "patch",
             return_value=self.unsuccessful_response(),
         ), pytest.raises(AduroResponseError):
-            await aduro_session._put_url(  # pylint: disable=protected-access
+            await aduro_session._patch_url(  # pylint: disable=protected-access
                 "test_url",
                 data=data,
             )

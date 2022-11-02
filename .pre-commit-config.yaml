@@ -6,10 +6,6 @@ repos:
       - id: debug-statements
       - id: end-of-file-fixer
       - id: trailing-whitespace
-  - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.3.0
-    hooks:
-      - id: add-trailing-comma
   - repo: https://github.com/pre-commit/mirrors-autopep8
     rev: v1.7.0
     hooks:
@@ -28,21 +24,20 @@ repos:
       - id: autoflake
         args:
           - --in-place
-          - --remove-all-unused-imports
           - --remove-duplicate-keys
-          - --remove-unused-variables
           - --expand-star-imports
+  - repo: https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+      - id: black
+        args: [--safe, --quiet]
   - repo: https://github.com/PyCQA/isort
     rev: 5.10.1
     hooks:
       - id: isort
         args:
           - --profile black
-  - repo: https://github.com/psf/black
-    rev: 22.10.0
-    hooks:
-      - id: black
-        args: [--safe, --quiet]
+          - --multi-line 3
   - repo: https://github.com/PyCQA/pylint
     rev: v2.15.5
     hooks:

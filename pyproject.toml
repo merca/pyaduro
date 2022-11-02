@@ -39,3 +39,8 @@ test = [
     "pydantic >=1.10.2",
     "pytest-mock",
 ]
+
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
