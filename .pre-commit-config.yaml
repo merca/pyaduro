@@ -10,6 +10,10 @@ repos:
     rev: v1.7.0
     hooks:
       - id: autopep8
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: v2.3.0
+    hooks:
+      - id: add-trailing-comma
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v0.982
     hooks:
@@ -30,14 +34,10 @@ repos:
     rev: 22.10.0
     hooks:
       - id: black
-        args: [--safe, --quiet]
   - repo: https://github.com/PyCQA/isort
     rev: 5.10.1
     hooks:
       - id: isort
-        args:
-          - --profile black
-          - --multi-line 3
   - repo: https://github.com/PyCQA/pylint
     rev: v2.15.5
     hooks:
