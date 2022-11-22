@@ -1,13 +1,15 @@
 """Aduro session"""
 from __future__ import annotations
 
+import json
 from typing import Any, Dict
 
 import aiohttp  # pylint: disable=import-error #noqa F401
 
 from aduro.const import API_VERSION, BASE_URL, CONTENT_TYPE_JSON
+from aduro.datetime_encoder import DateTimeEncoder
 from aduro.exceptions import AduroResponseError
-from aduro.model import Device, Entity, SearchResponse, State
+from aduro.model import Device, Entity, SearchResponse, State, StateType
 
 
 class AduroSession:  # pylint: disable=too-few-public-methods
@@ -16,7 +18,6 @@ class AduroSession:  # pylint: disable=too-few-public-methods
     def __init__(
         self,
         session_id: str,
-        session: aiohttp.ClientSession | None = None,
     ) -> None:
         """Initialize Aduro session.
 
@@ -25,7 +26,13 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         :param session: aiohttp client session, defaults to None and will be created
         :type session: aiohttp.ClientSession | None, optional
         """
-        self._session = session or aiohttp.ClientSession()
+
+        self._session = aiohttp.ClientSession(
+            json_serialize=lambda object: json.dumps(
+                object,
+                cls=DateTimeEncoder,
+            ),
+        )
         self._session_id = session_id
 
     def _get_headers(self) -> Dict[str, str]:
@@ -40,7 +47,11 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         }
         return headers
 
-    async def _get_url(self, path, params: dict | None = None) -> Dict[str, Any] | None:
+    async def _get_url(
+        self,
+        path: str,
+        params: dict | None = None,
+    ) -> Dict[str, Any] | None:
         """Get data from url.
 
         :param path: Url path
@@ -62,7 +73,11 @@ class AduroSession:  # pylint: disable=too-few-public-methods
                 )
             return data
 
-    async def _post_url(self, path, data) -> Dict[str, Any] | None:
+    async def _patch_url(
+        self,
+        path: str,
+        data: Dict[str, Any],
+    ) -> Dict[str, Any] | None:
         """Post data to url.
 
         :param path: Url path
@@ -74,17 +89,17 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         :return: json response
         :rtype: dict[str, Any]
         """
-        async with self._session.post(
+        async with self._session.patch(
             f"{BASE_URL}/{API_VERSION}/{path}",
             headers=self._get_headers(),
             json=data,
         ) as resp:
-            data = await resp.json()
+            response = await resp.json()
             if resp.status != 200:
                 raise AduroResponseError(
-                    f"Error getting stove ID: {data['message']}",
+                    f"Error patching object: {response['message']}",
                 )
-            return data
+            return response
 
     async def async_get_stove_ids(self, stove_name="Stove") -> list[str] | None:
         """Get stove ids. Should absolutely return only one.
@@ -132,7 +147,7 @@ class AduroSession:  # pylint: disable=too-few-public-methods
             entities.append(entity)
         return entities
 
-    async def async_get_state_value(self, state_id) -> State | None:
+    async def async_get_state_value(self, state_id: str) -> State | None:
         """Get entity state
 
         :param state_id: state id
@@ -142,3 +157,30 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         """
         data = await self._get_url(f"state/{state_id}")
         return State(**data) if data else None
+
+    async def async_patch_state_value(
+        self,
+        state_id: str,
+        value: Any,
+        state_type: StateType,
+    ) -> bool:
+        """Pathes the state value
+
+        :param state_id: The id for the state
+        :type state_id: str
+        :param value: The desired value
+        :type value: Any
+        :param state_type: The type of the state
+        :type state_type: StateType
+        :raises AduroResponseError: If stete type is not supported
+        :return: true if success
+        :rtype: bool
+        """
+        if state_type != StateType.CONTROL:
+            raise AduroResponseError("Can only update control state")
+        payload = {
+            "data": value,
+            "type": state_type.value,
+        }
+        await self._patch_url(f"state/{state_id}", payload)
+        return True

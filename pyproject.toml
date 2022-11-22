@@ -39,3 +39,13 @@ test = [
     "pydantic >=1.10.2",
     "pytest-mock",
 ]
+
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+
+[tool.black]
+line-length = 100
+target-version = ['py310']
