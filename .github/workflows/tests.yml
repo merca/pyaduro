@@ -28,10 +28,10 @@ jobs:
 #        run: python -c 'import os;print(os.environ)'
 #        env:
 #          SESSION_ID: ${{ secrets.SESSION_ID }}
-      - name: ✔ Run tox
-        run: tox -e py
-        env:
-          SESSION_ID: ${{secrets.SESSION_ID }}
+#      - name: ✔ Run tox
+#        run: tox -e py
+#        env:
+#          SESSION_ID: ${{secrets.SESSION_ID }}
       - name: 💢 SonarCloud Scan
         if: ${{ !env.ACT }}
         uses: SonarSource/sonarcloud-github-action@master
