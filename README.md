@@ -57,7 +57,7 @@ from aduro.session import AduroSession
 aduro_session = AduroSession(session_id)
 stove_ids = await aduro_session.async_get_stove_ids()
 
-device_info = await aduro_session.aync_get_device_info(stove_ids[0])
+device_info = await aduro_session.async_get_device_info(stove_ids[0])
 
 ```
 
