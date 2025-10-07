@@ -65,11 +65,14 @@ class TestSession:
     async def test_unsuccessful_get(self):
         """Test get with response code 400."""
         aduro_session = AduroSession("session_id")
-        with patch.object(
-            aiohttp.ClientSession,
-            "get",
-            return_value=self.unsuccessful_response(),
-        ), pytest.raises(AduroResponseError):
+        with (
+            patch.object(
+                aiohttp.ClientSession,
+                "get",
+                return_value=self.unsuccessful_response(),
+            ),
+            pytest.raises(AduroResponseError),
+        ):
             await aduro_session._get_url("test_url")  # pylint: disable=protected-access
 
     @pytest.mark.asyncio
@@ -93,11 +96,14 @@ class TestSession:
         """Test post with response code 400."""
         aduro_session = AduroSession("session_id")
         data = {"test": "test"}
-        with patch.object(
-            aiohttp.ClientSession,
-            "patch",
-            return_value=self.unsuccessful_response(),
-        ), pytest.raises(AduroResponseError):
+        with (
+            patch.object(
+                aiohttp.ClientSession,
+                "patch",
+                return_value=self.unsuccessful_response(),
+            ),
+            pytest.raises(AduroResponseError),
+        ):
             await aduro_session._patch_url(  # pylint: disable=protected-access
                 "test_url",
                 data=data,
