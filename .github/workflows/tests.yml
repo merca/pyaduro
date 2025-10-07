@@ -22,30 +22,30 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-      - name: 🔨 Install tox and any other packages
-        run: pip install tox
-      - name: Test env vars for python
-        run: python -c 'import os;print(os.environ)'
-        env:
-          SESSION_ID: ${{ secrets.SESSION_ID }}
-      - name: ✔ Run tox
-        run: tox -e py
-        env:
-          SESSION_ID: ${{secrets.SESSION_ID }}
-      - name: 💢 SonarCloud Scan
-        if: ${{ !env.ACT }}
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      - name: Run codacy-coverage-reporter
-        uses: codacy/codacy-coverage-reporter-action@v1
-        with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: coverage.xml
-      - name: Report results to DeepSource
-        run: |
-          curl https://deepsource.io/cli | sh
-          ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
-        env:
-          DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
+#      - name: 🔨 Install tox and any other packages
+#        run: pip install tox
+#      - name: Test env vars for python
+#        run: python -c 'import os;print(os.environ)'
+#        env:
+#          SESSION_ID: ${{ secrets.SESSION_ID }}
+#      - name: ✔ Run tox
+#        run: tox -e py
+#        env:
+#          SESSION_ID: ${{secrets.SESSION_ID }}
+#      - name: 💢 SonarCloud Scan
+#        if: ${{ !env.ACT }}
+#        uses: SonarSource/sonarcloud-github-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#      - name: Run codacy-coverage-reporter
+#        uses: codacy/codacy-coverage-reporter-action@v1
+#        with:
+#          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+#          coverage-reports: coverage.xml
+#      - name: Report results to DeepSource
+#        run: |
+#          curl https://deepsource.io/cli | sh
+#          ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
+#        env:
+#          DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}

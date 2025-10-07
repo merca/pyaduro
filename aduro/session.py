@@ -1,4 +1,5 @@
 """Aduro session"""
+
 from __future__ import annotations
 
 import json
@@ -120,8 +121,8 @@ class AduroSession:  # pylint: disable=too-few-public-methods
         data = SearchResponse(**raw) if raw else None
         return data.id if data else None
 
-    async def aync_get_device_info(self, device_id: str) -> Device | None:
-        """Get devices.
+    async def async_get_device_info(self, device_id: str) -> Device | None:
+        """Get device information.
 
         :return: Device
         :rtype: Device
