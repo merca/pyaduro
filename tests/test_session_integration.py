@@ -44,7 +44,7 @@ async def test_get_stove_id_with_unknown_session_id_raises_aduro_response_error(
 async def test_successful_get_device_info(session_id):
     """Test getting the device info."""
     aduro_session = AduroSession(session_id)
-    device_info = await aduro_session.aync_get_device_info(
+    device_info = await aduro_session.async_get_device_info(
         "373371fe-9735-4069-25d6-44a93531a982",
     )
     assert device_info is not None
@@ -55,7 +55,7 @@ async def test_get_device_info_with_unknown_session_id_raises_aduro_response_err
     """Test getting the device info."""
     aduro_session = AduroSession("session_id")
     with pytest.raises(AduroResponseError):
-        await aduro_session.aync_get_device_info(
+        await aduro_session.async_get_device_info(
             "373371fe-9735-4069-25d6-44a93531a982",
         )
 
@@ -67,14 +67,14 @@ async def test_get_device_info_with_unknown_stove_id_raises_aduro_response_error
     """Test getting the device info."""
     aduro_session = AduroSession(session_id)
     with pytest.raises(AduroResponseError):
-        await aduro_session.aync_get_device_info("bongo")
+        await aduro_session.async_get_device_info("bongo")
 
 
 @pytest.mark.asyncio
 async def test_get_device_entities(session_id):
     """Test getting device entities"""
     aduro_session = AduroSession(session_id)
-    device = await aduro_session.aync_get_device_info(
+    device = await aduro_session.async_get_device_info(
         "373371fe-9735-4069-25d6-44a93531a982",
     )
     entities = await aduro_session.async_get_device_entities(device.value)
@@ -88,7 +88,7 @@ async def test_get_device_entities(session_id):
 async def test_entity_state(session_id):
     """Test entity status"""
     aduro_session = AduroSession(session_id)
-    device = await aduro_session.aync_get_device_info(
+    device = await aduro_session.async_get_device_info(
         "373371fe-9735-4069-25d6-44a93531a982",
     )
     entities = await aduro_session.async_get_device_entities(device.value)
