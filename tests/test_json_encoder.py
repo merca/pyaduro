@@ -1,4 +1,5 @@
 """Test json encoding of datetime objects."""
+
 import datetime
 import json
 

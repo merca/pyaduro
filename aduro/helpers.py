@@ -1,4 +1,5 @@
 """Helper methods for the Seluxit API."""
+
 from typing import Any, Union
 
 

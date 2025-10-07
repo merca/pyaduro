@@ -1,4 +1,5 @@
 """Encode datetime in json"""
+
 import json
 from datetime import datetime
 
