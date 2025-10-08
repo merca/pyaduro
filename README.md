@@ -2,80 +2,80 @@
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=bugs)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=coverage)](https://sonarcloud.io/summary/new_code?id=pyAduro)[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=pyAduro&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=pyAduro)
 
-Async Python 3 library for Aduro Stove
-Async Python 3 library for Aduro Stove P4.
+## Overview
 
-Aduro stove communicates via [Wappsto](https://wappsto.seluxit.com) API ([documentation](https://documentation.wappsto.com/#/docs/introduction/introduction)).
+`pyAduro` is an asynchronous Python 3 library for interacting with Aduro P4 stoves through the [Wappsto](https://wappsto.seluxit.com) cloud API. The client automatically filters the connected Wappsto devices to the verified Aduro product `P1 [4EFA]`, exposing all available entities and their real-time state information. Both polling and streaming usage patterns are supported.
 
-Wappsto portal can contain many devices, this API filters out those by Aduro, named Stove and that have product `P1 [4EFA]`, since this is the only device I can verify.
+## Requirements
 
-All device entities, with their state, are returned by the API. Streaming is supported.
+- Python 3.10 or newer
+- An active Wappsto account with at least one connected Aduro stove
+- Either a Wappsto username/password pair or an OAuth token for authentication
 
-Login methodes: username and password or OAuth token.
+## Installation
 
-## Install
+Install the library from PyPI:
 
 ```bash
 pip install pyaduro
 ```
 
-## Pulling
+## Authentication
+
+Create an `AduroClient`, authenticate, and capture the Wappsto session identifier. The session ID can be reused in subsequent runs to avoid logging in repeatedly.
 
 ```python
-
 from aduro.client import AduroClient
-user_name="username"
-password="password"
 
-aduro_client=AduroClient()
-await aduro_client.async_login(username,password)
-# since Wappsto only uses session_id in API, get it after login
-session_id = aduro_client.session_id
-# then you can store it and skip login for future connections
+USERNAME = "username"
+PASSWORD = "password"
+
+client = AduroClient()
+await client.async_login(USERNAME, PASSWORD)
+session_id = client.session_id
 ```
 
-### Find stove
+If you already have a valid session ID or OAuth token, pass it directly when creating the client to skip the login call.
 
-Returns list of stove ids found.
+## Working with sessions
+
+Use the session helper to discover stoves and inspect their metadata. All helper methods are asynchronous and should be awaited within an event loop (for example inside an `asyncio` task).
 
 ```python
-
 from aduro.session import AduroSession
 
-aduro_session = AduroSession(session_id)
-stove_ids = await aduro_session.async_get_stove_ids()
+session = AduroSession(session_id)
+stove_ids = await session.async_get_stove_ids()
+
+device_info = await session.async_get_device_info(stove_ids[0])
 ```
 
-### Get stove details
+## Entities and states
 
-Returns object with stove details.
+Each stove exposes a collection of entities. Every entity can include one or both of the following state types:
 
-```python
+- **Control** – writable when the permission flag is `w`
+- **Report** – read-only state representing the latest reported value
 
-from aduro.session import AduroSession
-
-aduro_session = AduroSession(session_id)
-stove_ids = await aduro_session.async_get_stove_ids()
-
-device_info = await aduro_session.async_get_device_info(stove_ids[0])
-
-```
-
-### Get all device entities and their states
-
-Returns list of stove entities with all their details. `async_get_state_value` returns state value. Possible states for entity are `Control` (desired state and can be uptated when permission == `w`) or `Report` (current value for state and can not be updated). Entity can have both `Control` and `Report` state.
+Retrieve the entities for a stove and inspect their individual states:
 
 ```python
-entities = await aduro.async_get_device_entities(stove.id)
+entities = await session.async_get_device_entities(stove_ids[0])
 for entity in entities:
-    states = await aduro.async_get_state_value(entity.id)
+    states = await session.async_get_state_value(entity.id)
 ```
 
-## Update state
+## Updating control states
 
-To update state (with permission `w`).
+For writable states, call `async_patch_state_value` with the target state identifier and the new value. The coroutine returns `True` on success.
 
 ```python
-bool success = await aduro.async_patch_state_value(state_id, value)
-
+success = await session.async_patch_state_value(state_id, value)
 ```
+
+## Additional resources
+
+- [Wappsto API documentation](https://documentation.wappsto.com/#/docs/introduction/introduction)
+- [Project issue tracker](https://github.com/maaslalani/pyaduro/issues)
+
+For integration examples and troubleshooting tips, consult the Home Assistant community forums or open an issue if you need further assistance.
